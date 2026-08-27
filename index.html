@@ -44,8 +44,9 @@
     <header class="sticky top-0 z-50 bg-cyberdark/95 backdrop-blur-md border-b border-cyan-900/40">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-lg md:text-xl font-bold tracking-wider text-cyberaccent font-mono">&lt;ABDUL HAYEE&gt;</a>
-            <div class="flex items-center space-x-4 md:space-x-6 text-sm">
+            <div class="flex items-center space-x-3 md:space-x-5 text-sm">
                 <a href="#about" class="hover:text-cyberaccent transition">About</a>
+                <a href="#education" class="hover:text-cyberaccent transition">Education</a>
                 <a href="#certificates" class="hover:text-cyberaccent transition">Certificates</a>
                 <a href="#events" class="hover:text-cyberaccent transition">Bootcamps</a>
                 <a href="#contact" class="hover:text-cyberaccent transition">Contact</a>
@@ -67,6 +68,9 @@
                 </button>
                 <button onclick="editContactLinks()" class="bg-gray-800 border border-cyan-500/50 text-cyan-300 font-bold px-3 py-1.5 rounded hover:bg-cyan-900 transition">
                     <i class="fa-solid fa-share-nodes mr-1"></i> Socials
+                </button>
+                <button onclick="addNewEducation()" class="bg-cyan-700 text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400 transition">
+                    <i class="fa-solid fa-graduation-cap mr-1"></i> Education
                 </button>
                 <button onclick="addNewCertificate()" class="bg-cyberaccent text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400 transition">
                     <i class="fa-solid fa-plus mr-1"></i> Cert
@@ -125,6 +129,14 @@
         </div>
     </section>
 
+    <!-- Education Section -->
+    <section id="education" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
+        <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Education & Degrees</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="education-container">
+            <!-- Rendered dynamically via JavaScript -->
+        </div>
+    </section>
+
     <!-- Certificates Section -->
     <section id="certificates" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
         <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Certificates & Credentials</h2>
@@ -158,16 +170,20 @@
         <p>&copy; 2026 Abdul Hayee Jamali. All rights reserved. Secured & Encrypted.</p>
     </footer>
 
-    <!-- JavaScript with Enhanced Bootcamp Roles, Duration, Skills & Fixed CRUD -->
+    <!-- JavaScript with Education, Certificates, Bootcamps and CV Sync -->
     <script>
         const CORRECT_PASSWORD = "Website@shani1202";
         let isAdmin = false;
 
+        const defaultEducation = [
+            { degree: "BS in Cybersecurity", institution: "University of Peshawar", duration: "2024 - Present", details: "Specialized in OT Security, SCADA/ICS Defense, and Network Protocols." },
+            { degree: "Diploma of Associate Engineering (DAE) in Electronics & Communication", institution: "Polytechnic Institute", duration: "3 Years", details: "Covered hardware systems, communication engineering, and core electronics." }
+        ];
         const defaultCerts = [
             { title: "Critical Infrastructure Protection", issuer: "OPSWAT Academy", date: "August 2026", link: "#" }
         ];
         const defaultEvents = [
-            { title: "Introduction to OT Security & SCADA Defense", role: "teacher", duration: "3 Days", skills: "SCADA, ICS Protocols, Wireshark, Vulnerability Assessment", date: "September 15, 2026", description: "A live hands-on bootcamp for cybersecurity students covering ICS network defense." }
+            { title: "Introduction to OT Security & SCADA Defense", role: "teacher", duration: "3 Days", skills: "SCADA, ICS Protocols, Wireshark", date: "September 15, 2026", description: "A live hands-on bootcamp for cybersecurity students." }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -183,9 +199,45 @@
                 if(savedSocials.email) document.getElementById('social-email').href = "mailto:" + savedSocials.email;
             }
 
+            loadEducation();
             loadCertificates();
             loadEvents();
         });
+
+        // EDUCATION LOAD
+        function loadEducation() {
+            const container = document.getElementById('education-container');
+            let edu = JSON.parse(localStorage.getItem('myEducation'));
+            if (!edu) {
+                edu = defaultEducation;
+                localStorage.setItem('myEducation', JSON.stringify(edu));
+            }
+
+            container.innerHTML = '';
+            edu.forEach((e, index) => {
+                const card = document.createElement('div');
+                card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden";
+                card.innerHTML = `
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <i class="fa-solid fa-graduation-cap text-3xl text-cyberaccent mb-3"></i>
+                            <div class="space-x-1 ${isAdmin ? '' : 'hidden'}">
+                                <button onclick="editEducation(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900 cursor-pointer" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteEducation(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900 cursor-pointer" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-semibold">${e.degree}</h3>
+                        <p class="text-sm text-cyan-300 font-mono mt-1">${e.institution}</p>
+                        <p class="text-sm text-gray-300 mt-2">${e.details}</p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-800 flex justify-between items-center text-xs text-gray-400 font-mono">
+                        <span><i class="fa-regular fa-calendar mr-1"></i>${e.duration}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
 
         function loadCertificates() {
             const container = document.getElementById('certs-container');
@@ -270,6 +322,7 @@
                         isAdmin = true;
                         document.getElementById('admin-panel').classList.remove('hidden');
                         document.getElementById('lock-icon').classList.replace('fa-lock', 'fa-unlock');
+                        loadEducation();
                         loadCertificates();
                         loadEvents();
                         alert("Secure Session Unlocked!");
@@ -281,6 +334,7 @@
                 isAdmin = false;
                 document.getElementById('admin-panel').classList.add('hidden');
                 document.getElementById('lock-icon').classList.replace('fa-unlock', 'fa-lock');
+                loadEducation();
                 loadCertificates();
                 loadEvents();
                 alert("Admin Session Locked.");
@@ -309,6 +363,48 @@
                 document.getElementById('social-github').href = github;
                 document.getElementById('social-email').href = "mailto:" + email;
                 alert("Social links updated!");
+            }
+        }
+
+        // EDUCATION CRUD
+        function addNewEducation() {
+            const degree = prompt("Enter Degree / Diploma Title (e.g., BS Cybersecurity / DAE Electronics):");
+            const institution = prompt("Enter Institution Name (e.g., University of Peshawar):");
+            const duration = prompt("Enter Duration / Years (e.g., 2024 - Present or 3 Years):");
+            const details = prompt("Enter Key Details / Specialization:");
+
+            if (degree && institution) {
+                let edu = JSON.parse(localStorage.getItem('myEducation') || '[]');
+                edu.push({ degree, institution, duration: duration || "", details: details || "" });
+                localStorage.setItem('myEducation', JSON.stringify(edu));
+                loadEducation();
+                alert("Education added!");
+            }
+        }
+
+        function editEducation(index) {
+            let edu = JSON.parse(localStorage.getItem('myEducation'));
+            const e = edu[index];
+            const degree = prompt("Edit Degree/Title:", e.degree);
+            const institution = prompt("Edit Institution:", e.institution);
+            const duration = prompt("Edit Duration:", e.duration);
+            const details = prompt("Edit Details:", e.details);
+
+            if (degree && institution) {
+                edu[index] = { degree, institution, duration: duration || "", details: details || "" };
+                localStorage.setItem('myEducation', JSON.stringify(edu));
+                loadEducation();
+                alert("Education updated!");
+            }
+        }
+
+        function deleteEducation(index) {
+            if (confirm("Delete this education entry?")) {
+                let edu = JSON.parse(localStorage.getItem('myEducation'));
+                edu.splice(index, 1);
+                localStorage.setItem('myEducation', JSON.stringify(edu));
+                loadEducation();
+                alert("Education deleted!");
             }
         }
 
@@ -375,7 +471,7 @@
             let events = JSON.parse(localStorage.getItem('myEvents'));
             const e = events[index];
             const title = prompt("Edit Title:", e.title);
-            const roleInput = prompt("Role Type ('teacher' or 'student'):", e.role || "teacher");
+            const roleInput = prompt("Edit Role Type ('teacher' or 'student'):", e.role || "teacher");
             const duration = prompt("Edit Duration:", e.duration || "3 Days");
             const skills = prompt("Edit Skills Covered:", e.skills || "");
             const date = prompt("Edit Date:", e.date);
@@ -400,22 +496,23 @@
             }
         }
 
-        // AUTO-SYNC DYNAMIC CV GENERATOR WITH SKILLS & SEPARATE ROLES
+        // AUTO-SYNC DYNAMIC CV GENERATOR WITH EDUCATION, SKILLS & ROLES
         function generateDynamicCV() {
             const about = document.getElementById('about-text').innerText;
+            const eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
             const certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
             const events = JSON.parse(localStorage.getItem('myEvents') || '[]');
             const socials = JSON.parse(localStorage.getItem('mySocials') || '{}');
 
-            // Separate teacher vs student events
             const teachingEvents = events.filter(e => e.role === 'teacher');
             const studentEvents = events.filter(e => e.role !== 'teacher');
 
+            let eduHTML = eduList.map(e => `<li><strong>${e.degree}</strong> - ${e.institution} (${e.duration})<br>${e.details}</li>`).join('');
             let certsHTML = certs.map(c => `<li><strong>${c.title}</strong> - ${c.issuer} (${c.date})</li>`).join('');
             let teachHTML = teachingEvents.map(e => `<li><strong>${e.title}</strong> [Duration: ${e.duration}] (${e.date})<br><em>Skills Taught: ${e.skills || 'N/A'}</em><br>${e.description}</li>`).join('');
             let studHTML = studentEvents.map(e => `<li><strong>${e.title}</strong> [Duration: ${e.duration}] (${e.date})<br><em>Skills Acquired: ${e.skills || 'N/A'}</em><br>${e.description}</li>`).join('');
 
-            // Collect all unique skills
+            // Collect all unique skills from events & education
             let allSkills = new Set();
             events.forEach(e => {
                 if(e.skills) {
@@ -423,7 +520,7 @@
                 }
             });
             let skillsArray = Array.from(allSkills);
-            let skillsHTML = skillsArray.length > 0 ? skillsArray.map(s => `<span>${s}</span>`).join(' • ') : 'Cybersecurity, OT Security, ICS/SCADA, Python';
+            let skillsHTML = skillsArray.length > 0 ? skillsArray.map(s => `<span>${s}</span>`).join(' • ') : 'Cybersecurity, OT Security, ICS/SCADA, Python, Electronics';
 
             const cvWindow = window.open('', '_blank');
             cvWindow.document.write(`
@@ -451,13 +548,16 @@
                     <h2>Professional Summary</h2>
                     <p>${about}</p>
 
+                    <h2>Education & Qualifications</h2>
+                    <ul>${eduHTML || '<li>No education added yet.</li>'}</ul>
+
                     <h2>Technical & Professional Skills</h2>
                     <div class="skills-box">${skillsHTML}</div>
                     
                     <h2>Certificates & Credentials</h2>
                     <ul>${certsHTML || '<li>No certificates added yet.</li>'}</ul>
 
-                    <h2>Bootcamps & Training Conducted (As Instructor/Teacher)</h2>
+                    <h2>Training Conducted (As Instructor/Teacher)</h2>
                     <ul>${teachHTML || '<li>No teaching sessions recorded yet.</li>'}</ul>
 
                     <h2>Bootcamps Attended (As a Student)</h2>
