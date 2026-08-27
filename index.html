@@ -133,9 +133,9 @@
         </div>
     </section>
 
-    <!-- Upcoming Bootcamps & Events Section -->
+    <!-- Bootcamps & Training Events Section -->
     <section id="events" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
-        <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Upcoming Bootcamps & Events</h2>
+        <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Bootcamps & Training Sessions</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-container">
             <!-- Rendered dynamically via JavaScript -->
         </div>
@@ -158,27 +158,24 @@
         <p>&copy; 2026 Abdul Hayee Jamali. All rights reserved. Secured & Encrypted.</p>
     </footer>
 
-    <!-- JavaScript for Dynamic CRUD, CV Sync, and Admin Control -->
+    <!-- JavaScript with Enhanced Bootcamp Roles, Duration, Skills & Fixed CRUD -->
     <script>
         const CORRECT_PASSWORD = "Website@shani1202";
         let isAdmin = false;
 
-        // Default Data if empty
         const defaultCerts = [
             { title: "Critical Infrastructure Protection", issuer: "OPSWAT Academy", date: "August 2026", link: "#" }
         ];
         const defaultEvents = [
-            { title: "Introduction to OT Security & SCADA Defense", date: "September 15, 2026", description: "A live hands-on bootcamp for cybersecurity students covering ICS network protocols and vulnerability assessment." }
+            { title: "Introduction to OT Security & SCADA Defense", role: "teacher", duration: "3 Days", skills: "SCADA, ICS Protocols, Wireshark, Vulnerability Assessment", date: "September 15, 2026", description: "A live hands-on bootcamp for cybersecurity students covering ICS network defense." }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
-            // Load About
             const savedAbout = localStorage.getItem('myAboutText');
             if (savedAbout) {
                 document.getElementById('about-text').innerText = savedAbout;
             }
 
-            // Load Socials
             const savedSocials = JSON.parse(localStorage.getItem('mySocials'));
             if (savedSocials) {
                 if(savedSocials.linkedin) document.getElementById('social-linkedin').href = savedSocials.linkedin;
@@ -208,8 +205,8 @@
                         <div class="flex justify-between items-start">
                             <i class="fa-solid fa-certificate text-3xl text-cyberaccent mb-3"></i>
                             <div class="space-x-1 ${isAdmin ? '' : 'hidden'}">
-                                <button onclick="editCertificate(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteCertificate(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="editCertificate(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900 cursor-pointer" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteCertificate(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900 cursor-pointer" title="Delete"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
                         <h3 class="text-xl font-semibold">${c.title}</h3>
@@ -234,24 +231,31 @@
 
             container.innerHTML = '';
             events.forEach((e, index) => {
+                const roleBadge = e.role === 'teacher' 
+                    ? '<span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded font-mono"><i class="fa-solid fa-chalkboard-user mr-1"></i>Taught / Instructor</span>' 
+                    : '<span class="text-xs bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded font-mono"><i class="fa-solid fa-graduation-cap mr-1"></i>Attended / Student</span>';
+
                 const card = document.createElement('div');
                 card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden";
                 card.innerHTML = `
                     <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
                     <div>
                         <div class="flex justify-between items-start">
-                            <i class="fa-solid fa-chalkboard-user text-3xl text-cyberaccent mb-3"></i>
+                            <div class="space-y-2">
+                                ${roleBadge}
+                                <span class="text-xs bg-gray-800 text-gray-300 border border-gray-700 px-2 py-1 rounded font-mono ml-1"><i class="fa-regular fa-clock mr-1"></i>${e.duration || 'N/A'}</span>
+                            </div>
                             <div class="space-x-1 ${isAdmin ? '' : 'hidden'}">
-                                <button onclick="editEvent(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteEvent(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="editEvent(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900 cursor-pointer" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteEvent(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900 cursor-pointer" title="Delete"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
-                        <h3 class="text-xl font-semibold">${e.title}</h3>
+                        <h3 class="text-xl font-semibold mt-3">${e.title}</h3>
                         <p class="text-sm text-gray-300 mt-2">${e.description}</p>
+                        ${e.skills ? `<p class="text-xs text-cyberaccent font-mono mt-3"><i class="fa-solid fa-brain mr-1"></i>Skills: ${e.skills}</p>` : ''}
                     </div>
-                    <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
-                        <span class="text-xs text-cyberaccent font-mono"><i class="fa-solid fa-calendar-days mr-1"></i>${e.date}</span>
-                        <span class="text-xs bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded font-mono">Upcoming Bootcamp</span>
+                    <div class="pt-4 border-t border-gray-800 flex justify-between items-center text-xs text-gray-400 font-mono">
+                        <span><i class="fa-solid fa-calendar-days mr-1"></i>${e.date}</span>
                     </div>
                 `;
                 container.appendChild(card);
@@ -350,16 +354,20 @@
         }
 
         function addNewEvent() {
-            const title = prompt("Enter Bootcamp/Event Title:");
+            const title = prompt("Enter Bootcamp/Session Title:");
+            const roleInput = prompt("Role Type? Type 'teacher' if you taught it, or 'student' if you attended it:", "teacher");
+            const duration = prompt("Enter Duration (e.g. 3 Days / 2 Weeks):", "3 Days");
+            const skills = prompt("Enter Skills Covered (comma separated):", "Python, Security");
             const date = prompt("Enter Date (e.g. Sept 15, 2026):");
-            const description = prompt("Enter Event Description:");
+            const description = prompt("Enter Short Description:");
 
             if (title) {
                 let events = JSON.parse(localStorage.getItem('myEvents') || '[]');
-                events.push({ title, date: date || "", description: description || "" });
+                const role = (roleInput && roleInput.toLowerCase().includes('teach')) ? 'teacher' : 'student';
+                events.push({ title, role, duration: duration || "1 Day", skills: skills || "", date: date || "", description: description || "" });
                 localStorage.setItem('myEvents', JSON.stringify(events));
                 loadEvents();
-                alert("Bootcamp added!");
+                alert("Bootcamp session added!");
             }
         }
 
@@ -367,11 +375,15 @@
             let events = JSON.parse(localStorage.getItem('myEvents'));
             const e = events[index];
             const title = prompt("Edit Title:", e.title);
+            const roleInput = prompt("Role Type ('teacher' or 'student'):", e.role || "teacher");
+            const duration = prompt("Edit Duration:", e.duration || "3 Days");
+            const skills = prompt("Edit Skills Covered:", e.skills || "");
             const date = prompt("Edit Date:", e.date);
             const description = prompt("Edit Description:", e.description);
 
             if (title) {
-                events[index] = { title, date: date || "", description: description || "" };
+                const role = (roleInput && roleInput.toLowerCase().includes('teach')) ? 'teacher' : 'student';
+                events[index] = { title, role, duration: duration || "", skills: skills || "", date: date || "", description: description || "" };
                 localStorage.setItem('myEvents', JSON.stringify(events));
                 loadEvents();
                 alert("Bootcamp updated!");
@@ -379,7 +391,7 @@
         }
 
         function deleteEvent(index) {
-            if (confirm("Delete this bootcamp?")) {
+            if (confirm("Delete this bootcamp session?")) {
                 let events = JSON.parse(localStorage.getItem('myEvents'));
                 events.splice(index, 1);
                 localStorage.setItem('myEvents', JSON.stringify(events));
@@ -388,15 +400,30 @@
             }
         }
 
-        // AUTO-SYNC DYNAMIC CV GENERATOR
+        // AUTO-SYNC DYNAMIC CV GENERATOR WITH SKILLS & SEPARATE ROLES
         function generateDynamicCV() {
             const about = document.getElementById('about-text').innerText;
             const certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
             const events = JSON.parse(localStorage.getItem('myEvents') || '[]');
             const socials = JSON.parse(localStorage.getItem('mySocials') || '{}');
 
+            // Separate teacher vs student events
+            const teachingEvents = events.filter(e => e.role === 'teacher');
+            const studentEvents = events.filter(e => e.role !== 'teacher');
+
             let certsHTML = certs.map(c => `<li><strong>${c.title}</strong> - ${c.issuer} (${c.date})</li>`).join('');
-            let eventsHTML = events.map(e => `<li><strong>${e.title}</strong> (${e.date}): ${e.description}</li>`).join('');
+            let teachHTML = teachingEvents.map(e => `<li><strong>${e.title}</strong> [Duration: ${e.duration}] (${e.date})<br><em>Skills Taught: ${e.skills || 'N/A'}</em><br>${e.description}</li>`).join('');
+            let studHTML = studentEvents.map(e => `<li><strong>${e.title}</strong> [Duration: ${e.duration}] (${e.date})<br><em>Skills Acquired: ${e.skills || 'N/A'}</em><br>${e.description}</li>`).join('');
+
+            // Collect all unique skills
+            let allSkills = new Set();
+            events.forEach(e => {
+                if(e.skills) {
+                    e.skills.split(',').forEach(s => allSkills.add(s.trim()));
+                }
+            });
+            let skillsArray = Array.from(allSkills);
+            let skillsHTML = skillsArray.length > 0 ? skillsArray.map(s => `<span>${s}</span>`).join(' • ') : 'Cybersecurity, OT Security, ICS/SCADA, Python';
 
             const cvWindow = window.open('', '_blank');
             cvWindow.document.write(`
@@ -406,10 +433,11 @@
                     <title>Abdul Hayee Jamali - CV</title>
                     <style>
                         body { font-family: Arial, sans-serif; padding: 40px; color: #111; max-width: 800px; margin: auto; line-height: 1.6; }
-                        h1 { border-bottom: 2px solid #06b6d4; padding-bottom: 10px; color: #0a0f1d; }
-                        h2 { color: #0891b2; margin-top: 30px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+                        h1 { border-bottom: 2px solid #06b6d4; padding-bottom: 10px; color: #0a0f1d; margin-bottom: 5px; }
+                        h2 { color: #0891b2; margin-top: 25px; border-bottom: 1px solid #ddd; padding-bottom: 5px; font-size: 18px; }
                         ul { padding-left: 20px; }
-                        li { margin-bottom: 8px; }
+                        li { margin-bottom: 10px; }
+                        .skills-box { background: #f3f4f6; padding: 10px 15px; border-radius: 5px; font-weight: bold; color: #0891b2; margin-top: 10px; }
                         .print-btn { background: #06b6d4; color: #000; padding: 10px 20px; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; margin-bottom: 20px; }
                         @media print { .print-btn { display: none; } }
                     </style>
@@ -417,17 +445,23 @@
                 <body>
                     <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
                     <h1>Abdul Hayee Jamali</h1>
-                    <p><strong>BS Cybersecurity Student | OT Security & ICS/SCADA Specialist</strong></p>
+                    <p style="margin-top: 0;"><strong>BS Cybersecurity Student | OT Security & ICS/SCADA Specialist</strong></p>
                     <p>Email: jamaliabdulhayee111@gmail.com | LinkedIn: ${socials.linkedin || 'N/A'} | GitHub: ${socials.github || 'N/A'}</p>
                     
                     <h2>Professional Summary</h2>
                     <p>${about}</p>
+
+                    <h2>Technical & Professional Skills</h2>
+                    <div class="skills-box">${skillsHTML}</div>
                     
                     <h2>Certificates & Credentials</h2>
-                    <ul>${certsHTML}</ul>
+                    <ul>${certsHTML || '<li>No certificates added yet.</li>'}</ul>
 
-                    <h2>Bootcamps & Training Events Conducted</h2>
-                    <ul>${eventsHTML}</ul>
+                    <h2>Bootcamps & Training Conducted (As Instructor/Teacher)</h2>
+                    <ul>${teachHTML || '<li>No teaching sessions recorded yet.</li>'}</ul>
+
+                    <h2>Bootcamps Attended (As a Student)</h2>
+                    <ul>${studHTML || '<li>No attended bootcamps recorded yet.</li>'}</ul>
                 </body>
                 </html>
             `);
