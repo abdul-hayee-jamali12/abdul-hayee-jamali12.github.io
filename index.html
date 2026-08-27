@@ -28,6 +28,15 @@
                               linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
             background-size: 30px 30px;
         }
+        /* Smooth Card Hover Animation */
+        .cyber-card {
+            transition: all 0.3s ease;
+        }
+        .cyber-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.3);
+            border-color: rgba(6, 182, 212, 0.8);
+        }
     </style>
 </head>
 <body class="bg-cyberdark text-gray-100 font-sans antialiased cyber-grid selection:bg-cyberaccent selection:text-black">
@@ -100,23 +109,27 @@
     <!-- About Section -->
     <section id="about" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
         <h2 class="text-3xl font-bold mb-6 border-l-4 border-cyberaccent pl-4 font-mono">About Me</h2>
-        <div class="bg-cybergray/60 border border-cyan-900/40 rounded-xl p-8 space-y-4">
+        <div class="bg-cybergray/60 border border-cyan-900/40 rounded-xl p-8 space-y-4 shadow-lg">
             <p class="text-gray-300 leading-relaxed">
                 Pursuing a Bachelor of Science degree in Cybersecurity at the University of Peshawar. Specialized in Operational Technology (OT) security, SCADA/ICS environments, and critical infrastructure protection.
             </p>
         </div>
     </section>
 
-    <!-- Certificates Section -->
+    <!-- Certificates Section (Animated Interactive Cards) -->
     <section id="certificates" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
         <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Certificates & Credentials</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="certs-container">
-            <!-- Default Certificate -->
-            <div class="bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 space-y-4 hover:border-cyberaccent/50 transition">
+            <!-- Default Certificate Card -->
+            <div class="cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 space-y-4 cursor-pointer relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
                 <i class="fa-solid fa-certificate text-3xl text-cyberaccent"></i>
                 <h3 class="text-xl font-semibold">Critical Infrastructure Protection</h3>
                 <p class="text-sm text-gray-400">OPSWAT Academy</p>
-                <span class="text-xs text-cyberaccent font-mono block">August 2026</span>
+                <div class="pt-2 flex justify-between items-center">
+                    <span class="text-xs text-cyberaccent font-mono block">August 2026</span>
+                    <span class="text-xs text-cyan-400/70 font-mono"><i class="fa-solid fa-shield-check mr-1"></i>Verified</span>
+                </div>
             </div>
         </div>
     </section>
@@ -138,9 +151,9 @@
         <p>&copy; 2026 Abdul Hayee Jamali. All rights reserved. Secured & Encrypted.</p>
     </footer>
 
-    <!-- JavaScript for Secure Admin Login & Certificate Management -->
+    <!-- JavaScript for Admin Login & Certificate Management -->
     <script>
-        const TARGET_ENCODED = "V2Vic2l0ZUBzaGFuaTEyMDI=";
+        const CORRECT_PASSWORD = "Website@shani1202";
         let isAdmin = false;
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -150,12 +163,16 @@
                 const container = document.getElementById('certs-container');
                 certs.forEach(c => {
                     const card = document.createElement('div');
-                    card.className = "bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 space-y-4 hover:border-cyberaccent/50 transition";
+                    card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 space-y-4 cursor-pointer relative overflow-hidden";
                     card.innerHTML = `
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
                         <i class="fa-solid fa-certificate text-3xl text-cyberaccent"></i>
                         <h3 class="text-xl font-semibold">${c.title}</h3>
                         <p class="text-sm text-gray-400">${c.issuer}</p>
-                        <span class="text-xs text-cyberaccent font-mono block">${c.date}</span>
+                        <div class="pt-2 flex justify-between items-center">
+                            <span class="text-xs text-cyberaccent font-mono block">${c.date}</span>
+                            <span class="text-xs text-cyan-400/70 font-mono"><i class="fa-solid fa-shield-check mr-1"></i>Verified</span>
+                        </div>
                     `;
                     container.appendChild(card);
                 });
@@ -166,7 +183,7 @@
             if (!isAdmin) {
                 const pass = prompt("Enter Admin Password:");
                 if (pass) {
-                    if (btoa(pass) === TARGET_ENCODED) {
+                    if (pass.trim() === CORRECT_PASSWORD) {
                         isAdmin = true;
                         document.getElementById('admin-panel').classList.remove('hidden');
                         document.getElementById('lock-icon').classList.replace('fa-lock', 'fa-unlock');
@@ -197,12 +214,16 @@
 
                 const container = document.getElementById('certs-container');
                 const card = document.createElement('div');
-                card.className = "bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 space-y-4 hover:border-cyberaccent/50 transition";
+                card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 space-y-4 cursor-pointer relative overflow-hidden";
                 card.innerHTML = `
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
                     <i class="fa-solid fa-certificate text-3xl text-cyberaccent"></i>
                     <h3 class="text-xl font-semibold">${title}</h3>
                     <p class="text-sm text-gray-400">${issuer}</p>
-                    <span class="text-xs text-cyberaccent font-mono block">${date || ''}</span>
+                    <div class="pt-2 flex justify-between items-center">
+                        <span class="text-xs text-cyberaccent font-mono block">${date || ''}</span>
+                        <span class="text-xs text-cyan-400/70 font-mono"><i class="fa-solid fa-shield-check mr-1"></i>Verified</span>
+                    </div>
                 `;
                 container.appendChild(card);
                 alert("Certificate added successfully!");
