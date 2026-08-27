@@ -7,21 +7,28 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "certificates"
-    label: "Certificates"
-    folder: "content/certificates"
-    create: true
-    fields:
-      - {label: "Certificate Title", name: "title", widget: "string"}
-      - {label: "Issuer", name: "issuer", widget: "string"}
-      - {label: "Issue Date", name: "date", widget: "date"}
-      - {label: "Certificate File", name: "file", widget: "file"}
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - file: "_data/profile.json"
+        label: "Profile Info"
+        name: "profile"
+        fields:
+          - {label: "Name", name: "name", widget: "string"}
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Bio", name: "bio", widget: "text"}
 
-  - name: "projects"
-    label: "Projects"
-    folder: "content/projects"
-    create: true
-    fields:
-      - {label: "Project Title", name: "title", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "GitHub Link", name: "link", widget: "string", required: false}
+  - name: "cert_data"
+    label: "Certificates"
+    files:
+      - file: "_data/certificates.json"
+        label: "Certificates List"
+        name: "certificates"
+        fields:
+          - label: "Certificates"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Issuer", name: "issuer", widget: "string"}
+              - {label: "Date", name: "date", widget: "string"}
