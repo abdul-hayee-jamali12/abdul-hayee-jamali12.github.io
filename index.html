@@ -27,28 +27,28 @@
 </head>
 <body class="bg-cyberdark text-gray-100 font-sans antialiased selection:bg-cyberaccent selection:text-black">
 
-    <!-- Navigation -->
-    <header class="sticky top-0 z-50 bg-cyberdark/80 backdrop-blur-md border-b border-gray-800">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold tracking-wider text-cyberaccent">SHANI.JAMALI</a>
-            <div class="flex items-center space-x-6 text-sm">
+    <!-- Navigation (Spacing Fixed: Added space-x-8 and flex-wrap/gap to prevent touching) -->
+    <header class="sticky top-0 z-50 bg-cyberdark/90 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-lg md:text-xl font-bold tracking-wider text-cyberaccent">ABDUL HAYEE</a>
+            <div class="flex items-center space-x-6 md:space-x-8 text-sm">
                 <a href="#about" class="hover:text-cyberaccent transition">About</a>
                 <a href="#certificates" class="hover:text-cyberaccent transition">Certificates</a>
                 <a href="#projects" class="hover:text-cyberaccent transition">Projects</a>
                 <a href="#contact" class="hover:text-cyberaccent transition">Contact</a>
-                <a href="/admin/" class="bg-gray-900 border border-gray-700 hover:border-cyberaccent px-3 py-1.5 rounded-lg transition text-xs flex items-center space-x-1">
-                    <i class="fa-solid fa-lock text-cyberaccent"></i><span>Admin Login</span>
+                <a href="/admin/" class="bg-gray-900 border border-gray-700 hover:border-cyberaccent px-3 py-1.5 rounded-lg transition text-xs flex items-center space-x-1.5">
+                    <i class="fa-solid fa-lock text-cyberaccent"></i><span>Admin</span>
                 </a>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="max-w-6xl mx-auto px-4 py-20 md:py-32 flex flex-col md:flex-row items-center justify-between">
+    <section class="max-w-6xl mx-auto px-6 py-20 md:py-32 flex flex-col md:flex-row items-center justify-between">
         <div class="md:w-2/3 space-y-6">
-            <div class="inline-flex items-center space-x-2 bg-gray-900 border border-gray-800 px-3 py-1 rounded-full text-xs text-cyberaccent">
+            <div class="inline-flex items-center space-x-2 bg-gray-900 border border-gray-800 px-3.5 py-1.5 rounded-full text-xs text-cyberaccent">
                 <span class="w-2 h-2 rounded-full bg-cyberaccent animate-pulse"></span>
-                <span>Cybersecurity & OT Security Enthusiast</span>
+                <span>Cybersecurity & OT Security Specialist</span>
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
                 Hi, I'm <span class="text-cyberaccent">Abdul Hayee Jamali</span>
@@ -72,7 +72,7 @@
             <div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-transparent border border-cyan-500/30 p-2 flex items-center justify-center">
                 <div class="w-full h-full rounded-xl bg-gray-900 flex flex-col items-center justify-center text-center p-6 border border-gray-800">
                     <i class="fa-solid fa-shield-halved text-6xl text-cyberaccent mb-4"></i>
-                    <span class="text-sm font-mono text-gray-400">SHANI.JAMALI</span>
+                    <span class="text-sm font-mono text-gray-400 tracking-widest">ABDUL HAYEE</span>
                     <span class="text-xs text-gray-500 mt-1">SEC_OPS // 2026</span>
                 </div>
             </div>
@@ -80,10 +80,9 @@
     </section>
 
     <!-- Certificates Section -->
-    <section id="certificates" class="max-w-6xl mx-auto px-4 py-20 border-t border-gray-800">
+    <section id="certificates" class="max-w-6xl mx-auto px-6 py-20 border-t border-gray-800">
         <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4">Certificates & Credentials</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="certs-container">
-            <!-- Dynamic certificates will load here -->
             <div class="bg-cybergray border border-gray-800 rounded-xl p-6 space-y-4">
                 <i class="fa-solid fa-certificate text-3xl text-cyberaccent"></i>
                 <h3 class="text-xl font-semibold">Critical Infrastructure Protection</h3>
@@ -95,7 +94,7 @@
 
     <!-- Footer -->
     <footer class="border-t border-gray-800 py-8 text-center text-xs text-gray-500">
-        <p>&copy; 2026 Abdul Hayee Jamali (Shani Jamali). All rights reserved.</p>
+        <p>&copy; 2026 Abdul Hayee Jamali. All rights reserved.</p>
     </footer>
 </body>
 </html>
