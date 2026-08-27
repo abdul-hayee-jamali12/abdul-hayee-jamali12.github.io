@@ -17,6 +17,7 @@ collections:
           - {label: "Name", name: "name", widget: "string"}
           - {label: "Title", name: "title", widget: "string"}
           - {label: "Bio", name: "bio", widget: "text"}
+          - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
 
   - name: "cert_data"
     label: "Certificates"
