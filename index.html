@@ -28,6 +28,247 @@
                               linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
             background-size: 30px 30px;
         }
+        .cyber-card {
+            transition: all 0.3s ease;
+        }
+        .cyber-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.3);
+            border-color: rgba(6, 182, 212, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-cyberdark text-gray-100 font-sans antialiased cyber-grid selection:bg-cyberaccent selection:text-black">
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-cyberdark/95 backdrop-blur-md border-b border-cyan-900/40">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-lg md:text-xl font-bold tracking-wider text-cyberaccent font-mono">&lt;ABDUL HAYEE&gt;</a>
+            <div class="flex items-center space-x-6 md:space-x-8 text-sm">
+                <a href="#about" class="hover:text-cyberaccent transition">About</a>
+                <a href="#certificates" class="hover:text-cyberaccent transition">Certificates</a>
+                <a href="#contact" class="hover:text-cyberaccent transition">Contact</a>
+                <!-- Admin Toggle Button -->
+                <button onclick="toggleAdmin()" id="admin-btn" class="bg-gray-900 border border-cyan-900/50 hover:border-cyberaccent px-3 py-1.5 rounded-lg transition text-xs flex items-center space-x-1.5 font-mono text-gray-400">
+                    <i class="fa-solid fa-lock text-cyberaccent" id="lock-icon"></i><span id="admin-text">Admin</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Control Panel -->
+    <div id="admin-panel" class="hidden bg-cyan-950/90 border-b border-cyan-800 py-3 px-6 text-center">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center text-xs md:text-sm">
+            <span class="text-cyberaccent font-mono"><i class="fa-solid fa-triangle-exclamation mr-2"></i>ADMIN MODE ACTIVE: Secure Session Unlocked.</span>
+            <div class="space-x-3 mt-2 md:mt-0">
+                <button onclick="addNewCertificate()" class="bg-cyberaccent text-black font-bold px-4 py-1.5 rounded hover:bg-cyan-400 transition">
+                    <i class="fa-solid fa-plus mr-1"></i> Add Certificate
+                </button>
+                <button onclick="toggleAdmin()" class="bg-red-900/80 text-red-200 px-3 py-1.5 rounded hover:bg-red-800 transition">Exit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="max-w-6xl mx-auto px-6 py-20 md:py-32 flex flex-col md:flex-row items-center justify-between">
+        <div class="md:w-2/3 space-y-6">
+            <div class="inline-flex items-center space-x-2 bg-gray-900/80 border border-cyan-900/60 px-3.5 py-1.5 rounded-full text-xs text-cyberaccent font-mono">
+                <span class="w-2 h-2 rounded-full bg-cyberaccent animate-pulse"></span>
+                <span>ROOT_ACCESS // SECURE_MODE</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
+                Hi, I'm <span class="text-cyberaccent">Abdul Hayee Jamali</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-400 font-mono">
+                BS Cybersecurity Student | OT Security & ICS/SCADA Specialist
+            </p>
+            <p class="text-gray-400 max-w-xl leading-relaxed">
+                Specializing in Operational Technology security, critical infrastructure protection, and defensive security frameworks. Securing the digital backbone of industries.
+            </p>
+            <div class="flex flex-wrap gap-4 pt-4">
+                <a href="#contact" class="bg-cyberaccent text-black font-bold px-6 py-3 rounded-lg hover:bg-cyan-400 transition flex items-center space-x-2">
+                    <i class="fa-solid fa-terminal"></i><span>Get in Touch</span>
+                </a>
+                <a href="#" class="bg-gray-900 border border-cyan-900/60 hover:border-cyberaccent px-6 py-3 rounded-lg transition flex items-center space-x-2">
+                    <i class="fa-solid fa-download"></i><span>Download CV</span>
+                </a>
+            </div>
+        </div>
+        <div class="md:w-1/3 mt-12 md:mt-0 flex justify-center">
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-transparent border border-cyan-500/30 p-2 flex items-center justify-center shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+                <div class="w-full h-full rounded-xl bg-gray-900/90 flex flex-col items-center justify-center text-center p-6 border border-gray-800">
+                    <i class="fa-solid fa-shield-halved text-6xl text-cyberaccent mb-4 animate-bounce"></i>
+                    <span class="text-sm font-mono text-gray-400 tracking-widest">ABDUL.HAYEE</span>
+                    <span class="text-xs text-cyberaccent mt-1 font-mono">OT_SECURITY // 2026</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
+        <h2 class="text-3xl font-bold mb-6 border-l-4 border-cyberaccent pl-4 font-mono">About Me</h2>
+        <div class="bg-cybergray/60 border border-cyan-900/40 rounded-xl p-8 space-y-4 shadow-lg">
+            <p class="text-gray-300 leading-relaxed">
+                Pursuing a Bachelor of Science degree in Cybersecurity at the University of Peshawar. Specialized in Operational Technology (OT) security, SCADA/ICS environments, and critical infrastructure protection.
+            </p>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
+        <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Certificates & Credentials</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="certs-container">
+            <!-- Default Certificate Card with View Link -->
+            <div class="cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
+                <div>
+                    <i class="fa-solid fa-certificate text-3xl text-cyberaccent mb-3"></i>
+                    <h3 class="text-xl font-semibold">Critical Infrastructure Protection</h3>
+                    <p class="text-sm text-gray-400 mt-1">OPSWAT Academy</p>
+                </div>
+                <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
+                    <span class="text-xs text-cyberaccent font-mono">August 2026</span>
+                    <a href="#" target="_blank" class="text-xs bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500 hover:text-black px-3 py-1.5 rounded transition font-mono">
+                        <i class="fa-solid fa-eye mr-1"></i> View Credential
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Social Links Section -->
+    <section id="contact" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30 text-center">
+        <h2 class="text-3xl font-bold mb-4 font-mono">Establish Connection</h2>
+        <p class="text-gray-400 mb-8 max-w-md mx-auto">Open to cybersecurity collaborations, OT security discussions, and professional opportunities.</p>
+        
+        <div class="flex justify-center space-x-6 text-2xl">
+            <a href="https://linkedin.com" target="_blank" class="w-12 h-12 rounded-xl bg-cybergray border border-cyan-900/50 flex items-center justify-center hover:text-cyberaccent hover:border-cyberaccent transition"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/abdul-hayee-jamali12" target="_blank" class="w-12 h-12 rounded-xl bg-cybergray border border-cyan-900/50 flex items-center justify-center hover:text-cyberaccent hover:border-cyberaccent transition"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:jamaliabdulhayee111@gmail.com" class="w-12 h-12 rounded-xl bg-cybergray border border-cyan-900/50 flex items-center justify-center hover:text-cyberaccent hover:border-cyberaccent transition"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-cyan-900/30 py-8 text-center text-xs text-gray-500 font-mono">
+        <p>&copy; 2026 Abdul Hayee Jamali. All rights reserved. Secured & Encrypted.</p>
+    </footer>
+
+    <!-- JavaScript for Admin Login & Certificate Management -->
+    <script>
+        const CORRECT_PASSWORD = "Website@shani1202";
+        let isAdmin = false;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedCerts = localStorage.getItem('myCertificates');
+            if (savedCerts) {
+                const certs = JSON.parse(savedCerts);
+                const container = document.getElementById('certs-container');
+                certs.forEach(c => {
+                    const card = document.createElement('div');
+                    card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden";
+                    card.innerHTML = `
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
+                        <div>
+                            <i class="fa-solid fa-certificate text-3xl text-cyberaccent mb-3"></i>
+                            <h3 class="text-xl font-semibold">${c.title}</h3>
+                            <p class="text-sm text-gray-400 mt-1">${c.issuer}</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
+                            <span class="text-xs text-cyberaccent font-mono">${c.date}</span>
+                            ${c.link ? `<a href="${c.link}" target="_blank" class="text-xs bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500 hover:text-black px-3 py-1.5 rounded transition font-mono"><i class="fa-solid fa-eye mr-1"></i> View Credential</a>` : ''}
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+        });
+
+        function toggleAdmin() {
+            if (!isAdmin) {
+                const pass = prompt("Enter Admin Password:");
+                if (pass) {
+                    if (pass.trim() === CORRECT_PASSWORD) {
+                        isAdmin = true;
+                        document.getElementById('admin-panel').classList.remove('hidden');
+                        document.getElementById('lock-icon').classList.replace('fa-lock', 'fa-unlock');
+                        alert("Secure Session Unlocked!");
+                    } else {
+                        alert("Access Denied: Incorrect Password!");
+                    }
+                }
+            } else {
+                isAdmin = false;
+                document.getElementById('admin-panel').classList.add('hidden');
+                document.getElementById('lock-icon').classList.replace('fa-unlock', 'fa-lock');
+                alert("Admin Session Locked.");
+            }
+        }
+
+        function addNewCertificate() {
+            const title = prompt("Enter Certificate Title (e.g., CCNA / CEH):");
+            const issuer = prompt("Enter Issuer (e.g., Corvit / Cisco):");
+            const date = prompt("Enter Date (e.g., August 2026):");
+            const link = prompt("Enter Certificate Image/PDF Link (Google Drive / Direct URL):");
+
+            if (title && issuer) {
+                const newCert = { title, issuer, date: date || "", link: link || "" };
+                
+                let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
+                certs.push(newCert);
+                localStorage.setItem('myCertificates', JSON.stringify(certs));
+
+                const container = document.getElementById('certs-container');
+                const card = document.createElement('div');
+                card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden";
+                card.innerHTML = `
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
+                    <div>
+                        <i class="fa-solid fa-certificate text-3xl text-cyberaccent mb-3"></i>
+                        <h3 class="text-xl font-semibold">${title}</h3>
+                        <p class="text-sm text-gray-400 mt-1">${issuer}</p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
+                        <span class="text-xs text-cyberaccent font-mono">${date || ''}</span>
+                        ${link ? `<a href="${link}" target="_blank" class="text-xs bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500 hover:text-black px-3 py-1.5 rounded transition font-mono"><i class="fa-solid fa-eye mr-1"></i> View Credential</a>` : ''}
+                    </div>
+                `;
+                container.appendChild(card);
+                alert("Certificate added successfully!");
+            }
+        }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdul Hayee Jamali | Cybersecurity Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyberdark: '#070a13',
+                        cybergray: '#0d1322',
+                        cyberaccent: '#06b6d4',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .cyber-grid {
+            background-image: linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
         /* Smooth Card Hover Animation */
         .cyber-card {
             transition: all 0.3s ease;
