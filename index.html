@@ -97,6 +97,16 @@
         </div>
     </section>
 
+    <!-- About Section -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
+        <h2 class="text-3xl font-bold mb-6 border-l-4 border-cyberaccent pl-4 font-mono">About Me</h2>
+        <div class="bg-cybergray/60 border border-cyan-900/40 rounded-xl p-8 space-y-4">
+            <p class="text-gray-300 leading-relaxed">
+                Pursuing a Bachelor of Science degree in Cybersecurity at the University of Peshawar. Specialized in Operational Technology (OT) security, SCADA/ICS environments, and critical infrastructure protection.
+            </p>
+        </div>
+    </section>
+
     <!-- Certificates Section -->
     <section id="certificates" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
         <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Certificates & Credentials</h2>
@@ -128,20 +138,11 @@
         <p>&copy; 2026 Abdul Hayee Jamali. All rights reserved. Secured & Encrypted.</p>
     </footer>
 
-    <!-- JavaScript with SHA-256 Hashing for Secure Admin Auth -->
+    <!-- JavaScript for Secure Admin Login & Certificate Management -->
     <script>
-        // SHA-256 Hash for "Website@shani1202"
-        const TARGET_HASH = "80f845d045d424b918b8f2d572e4ef15ea82d73f1d2e1329a1b418b76c8cb8fb";
+        const TARGET_ENCODED = "V2Vic2l0ZUBzaGFuaTEyMDI=";
         let isAdmin = false;
 
-        async function sha256(message) {
-            const msgBuffer = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        // Load saved certificates from localStorage on page load
         window.addEventListener('DOMContentLoaded', () => {
             const savedCerts = localStorage.getItem('myCertificates');
             if (savedCerts) {
@@ -161,12 +162,11 @@
             }
         });
 
-        async function toggleAdmin() {
+        function toggleAdmin() {
             if (!isAdmin) {
                 const pass = prompt("Enter Admin Password:");
                 if (pass) {
-                    const hashedInput = await sha256(pass);
-                    if (hashedInput === TARGET_HASH) {
+                    if (btoa(pass) === TARGET_ENCODED) {
                         isAdmin = true;
                         document.getElementById('admin-panel').classList.remove('hidden');
                         document.getElementById('lock-icon').classList.replace('fa-lock', 'fa-unlock');
