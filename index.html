@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdul Hayee Jamali | Cybersecurity Portfolio & Dynamic CV</title>
+    <title>Abdul Hayee Jamali | Cybersecurity Portfolio</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -32,52 +32,56 @@
             transition: all 0.3s ease;
         }
         .cyber-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.3);
+            transform: translateY(-5px);
             border-color: rgba(6, 182, 212, 0.8);
+            box-shadow: 0 5px 20px rgba(6, 182, 212, 0.2);
         }
     </style>
 </head>
 <body class="bg-cyberdark text-gray-100 font-sans antialiased cyber-grid selection:bg-cyberaccent selection:text-black">
 
-    <!-- Navigation -->
-    <header class="sticky top-0 z-50 bg-cyberdark/95 backdrop-blur-md border-b border-cyan-900/40">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-lg md:text-xl font-bold tracking-wider text-cyberaccent font-mono">&lt;ABDUL HAYEE&gt;</a>
-            <div class="flex items-center space-x-4 md:space-x-6 text-sm">
-                <a href="#about" class="hover:text-cyberaccent transition">About</a>
-                <a href="#education" class="hover:text-cyberaccent transition">Education & Training</a>
-                <a href="#certificates" class="hover:text-cyberaccent transition">Certificates</a>
-                <a href="#contact" class="hover:text-cyberaccent transition">Contact</a>
-                <!-- Admin Toggle Button -->
-                <button onclick="window.toggleAdmin()" id="admin-btn" class="bg-gray-900 border border-cyan-900/50 hover:border-cyberaccent px-3 py-1.5 rounded-lg transition text-xs flex items-center space-x-1.5 font-mono text-gray-400">
-                    <i class="fa-solid fa-lock text-cyberaccent" id="lock-icon"></i><span id="admin-text">Admin</span>
-                </button>
-            </div>
+    <!-- Secure Top Bar with Hidden Admin Trigger -->
+    <div class="bg-gray-900 border-b border-cyan-900/50 py-2 px-4 text-xs font-mono flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center space-x-2 text-cyan-400">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>SECURE_MODE // READ_ONLY</span>
         </div>
-    </header>
+        <div>
+            <button onclick="window.triggerAdminLogin()" id="admin-trigger-btn" class="bg-cyan-950 border border-cyan-700 text-cyan-300 px-3 py-1 rounded hover:bg-cyan-900 transition cursor-pointer">
+                <i class="fa-solid fa-lock mr-1"></i> Admin Login
+            </button>
+        </div>
+    </div>
 
-    <!-- Admin Master Control Panel -->
-    <div id="admin-panel" class="hidden bg-cyan-950/95 border-b border-cyan-800 py-3 px-6 text-center sticky top-16 z-40 shadow-xl">
+    <!-- Admin Master Panel (Hidden by default, unlocks only via password) -->
+    <div id="admin-control-panel" class="hidden bg-cyan-950 border-b-2 border-cyberaccent py-3 px-6 text-center sticky top-8 z-40 shadow-2xl">
         <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center text-xs md:text-sm gap-2">
-            <span class="text-cyberaccent font-mono"><i class="fa-solid fa-triangle-exclamation mr-1"></i>ADMIN MODE ACTIVE</span>
+            <span class="text-cyberaccent font-bold font-mono"><i class="fa-solid fa-triangle-exclamation mr-1"></i> ADMIN SESSION ACTIVE</span>
             <div class="flex flex-wrap gap-2">
-                <button onclick="window.editAboutSection()" class="bg-gray-800 border border-cyan-500/50 text-cyan-300 font-bold px-3 py-1.5 rounded hover:bg-cyan-900">Edit About</button>
-                <button onclick="window.editContactLinks()" class="bg-gray-800 border border-cyan-500/50 text-cyan-300 font-bold px-3 py-1.5 rounded hover:bg-cyan-900">Edit Socials</button>
-                <button onclick="window.addNewEducation()" class="bg-cyan-600 text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400">+ Edu/Bootcamp</button>
-                <button onclick="window.addNewCertificate()" class="bg-cyberaccent text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400">+ Certificate</button>
-                <button onclick="window.toggleAdmin()" class="bg-red-900 text-red-200 px-3 py-1.5 rounded">Exit</button>
+                <button onclick="window.addNewEducation()" class="bg-cyan-600 text-black font-bold px-3 py-1 rounded text-xs cursor-pointer">+ Add Edu/Bootcamp</button>
+                <button onclick="window.addNewCertificate()" class="bg-cyberaccent text-black font-bold px-3 py-1 rounded text-xs cursor-pointer">+ Add Cert</button>
+                <button onclick="window.editAboutSection()" class="bg-gray-800 border border-cyan-500 text-cyan-300 px-3 py-1 rounded text-xs cursor-pointer">Edit Bio</button>
+                <button onclick="window.lockAdminSession()" class="bg-red-900 text-white px-3 py-1 rounded text-xs cursor-pointer">Lock Admin</button>
             </div>
         </div>
     </div>
 
+    <!-- Navigation -->
+    <header class="sticky top-8 z-30 bg-cyberdark/95 backdrop-blur-md border-b border-cyan-900/40">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-lg font-bold tracking-wider text-cyberaccent font-mono">&lt;ABDUL HAYEE&gt;</a>
+            <div class="flex items-center space-x-6 text-sm">
+                <a href="#about" class="hover:text-cyberaccent transition">About</a>
+                <a href="#education" class="hover:text-cyberaccent transition">Education</a>
+                <a href="#certificates" class="hover:text-cyberaccent transition">Certificates</a>
+                <a href="#contact" class="hover:text-cyberaccent transition">Contact</a>
+            </div>
+        </div>
+    </header>
+
     <!-- Hero Section -->
     <section class="max-w-6xl mx-auto px-6 py-20 md:py-32 flex flex-col md:flex-row items-center justify-between">
         <div class="md:w-2/3 space-y-6">
-            <div class="inline-flex items-center space-x-2 bg-gray-900/80 border border-cyan-900/60 px-3.5 py-1.5 rounded-full text-xs text-cyberaccent font-mono">
-                <span class="w-2 h-2 rounded-full bg-cyberaccent animate-pulse"></span>
-                <span>ROOT_ACCESS // SECURE_MODE</span>
-            </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
                 Hi, I'm <span class="text-cyberaccent">Abdul Hayee Jamali</span>
             </h1>
@@ -117,7 +121,7 @@
         </div>
     </section>
 
-    <!-- Unified Education & Training Section -->
+    <!-- Education & Training Section -->
     <section id="education" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
         <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Education, Diplomas & Bootcamps</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="education-container"></div>
@@ -129,15 +133,14 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="certs-container"></div>
     </section>
 
-    <!-- Contact & Social Links Section -->
+    <!-- Contact Section -->
     <section id="contact" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30 text-center">
         <h2 class="text-3xl font-bold mb-4 font-mono">Establish Connection</h2>
-        <p class="text-gray-400 mb-8 max-w-md mx-auto">Open to cybersecurity collaborations, OT security discussions, and professional opportunities.</p>
-        
+        <p class="text-gray-400 mb-8 max-w-md mx-auto">Open to cybersecurity collaborations and professional opportunities.</p>
         <div class="flex justify-center space-x-6 text-2xl" id="social-links-container">
-            <a href="https://linkedin.com" target="_blank" id="social-linkedin" class="w-12 h-12 rounded-xl bg-cybergray border border-cyan-900/50 flex items-center justify-center hover:text-cyberaccent hover:border-cyberaccent transition"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="https://github.com/abdul-hayee-jamali12" target="_blank" id="social-github" class="w-12 h-12 rounded-xl bg-cybergray border border-cyan-900/50 flex items-center justify-center hover:text-cyberaccent hover:border-cyberaccent transition"><i class="fa-brands fa-github"></i></a>
-            <a href="mailto:jamaliabdulhayee111@gmail.com" id="social-email" class="w-12 h-12 rounded-xl bg-cybergray border border-cyan-900/50 flex items-center justify-center hover:text-cyberaccent hover:border-cyberaccent transition"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://linkedin.com" target="_blank" id="social-linkedin" class="w-12 h-12 rounded-xl bg-cybergray border border-cyan-900/50 flex items-center justify-center hover:text-cyberaccent transition"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/abdul-hayee-jamali12" target="_blank" id="social-github" class="w-12 h-12 rounded-xl bg-cybergray border border-cyan-900/50 flex items-center justify-center hover:text-cyberaccent transition"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:jamaliabdulhayee111@gmail.com" id="social-email" class="w-12 h-12 rounded-xl bg-cybergray border border-cyan-900/50 flex items-center justify-center hover:text-cyberaccent transition"><i class="fa-solid fa-envelope"></i></a>
         </div>
     </section>
 
@@ -146,70 +149,71 @@
         <p>&copy; 2026 Abdul Hayee Jamali. All rights reserved. Secured & Encrypted.</p>
     </footer>
 
-    <!-- JavaScript Script -->
+    <!-- Secure JavaScript Engine -->
     <script>
         const CORRECT_PASSWORD = "Website@shani1202";
-        let isAdmin = false;
+        let isAuthorized = false;
 
-        const initialEducation = [
-            { category: "University", title: "BS in Cybersecurity", institution: "University of Peshawar", role: "student", duration: "2024 - Present", skills: "OT Security, SCADA/ICS Defense, Network Protocols", description: "Bachelor's degree focusing on defensive security frameworks and critical infrastructure defense." },
-            { category: "Diploma", title: "DAE in Electronics & Communication", institution: "Polytechnic Institute", role: "student", duration: "3 Years", skills: "Electronics, Hardware Systems, Communication Engineering", description: "Completed 3-year Diploma of Associate Engineering in Electronics." }
+        const defaultEdu = [
+            { category: "University", title: "BS in Cybersecurity", institution: "University of Peshawar", role: "student", duration: "2024 - Present", skills: "OT Security, SCADA/ICS", description: "Bachelor's degree focusing on defensive security." },
+            { category: "Diploma", title: "DAE in Electronics", institution: "Polytechnic Institute", role: "student", duration: "3 Years", skills: "Electronics, Hardware", description: "3-year Diploma in Electronics & Communication." }
         ];
 
-        const initialCerts = [
+        const defaultCerts = [
             { title: "Critical Infrastructure Protection", issuer: "OPSWAT Academy", date: "August 2026", link: "#" }
         ];
 
-        function initDB() {
-            if (!localStorage.getItem('myEducation')) {
-                localStorage.setItem('myEducation', JSON.stringify(initialEducation));
-            }
-            if (!localStorage.getItem('myCertificates')) {
-                localStorage.setItem('myCertificates', JSON.stringify(initialCerts));
-            }
-        }
-
         window.addEventListener('DOMContentLoaded', () => {
-            initDB();
+            if (!localStorage.getItem('myEducation')) localStorage.setItem('myEducation', JSON.stringify(defaultEdu));
+            if (!localStorage.getItem('myCertificates')) localStorage.setItem('myCertificates', JSON.stringify(defaultCerts));
+
             const savedAbout = localStorage.getItem('myAboutText');
             if (savedAbout) document.getElementById('about-text').innerText = savedAbout;
-
-            const savedSocials = JSON.parse(localStorage.getItem('mySocials'));
-            if (savedSocials) {
-                if(savedSocials.linkedin) document.getElementById('social-linkedin').href = savedSocials.linkedin;
-                if(savedSocials.github) document.getElementById('social-github').href = savedSocials.github;
-                if(savedSocials.email) document.getElementById('social-email').href = "mailto:" + savedSocials.email;
-            }
 
             window.loadEducation();
             window.loadCertificates();
         });
 
+        window.triggerAdminLogin = function() {
+            const pass = prompt("Enter Admin Password:");
+            if (pass && pass.trim() === CORRECT_PASSWORD) {
+                isAuthorized = true;
+                document.getElementById('admin-control-panel').classList.remove('hidden');
+                document.getElementById('admin-trigger-btn').innerHTML = '<i class="fa-solid fa-unlock mr-1 text-green-400"></i> Admin Unlocked';
+                document.getElementById('admin-trigger-btn').className = "bg-green-950 border border-green-700 text-green-300 px-3 py-1 rounded";
+                window.loadEducation();
+                window.loadCertificates();
+                alert("Access Granted!");
+            } else if (pass) {
+                alert("Access Denied: Incorrect Password!");
+            }
+        };
+
+        window.lockAdminSession = function() {
+            isAuthorized = false;
+            document.getElementById('admin-control-panel').classList.add('hidden');
+            document.getElementById('admin-trigger-btn').innerHTML = '<i class="fa-solid fa-lock mr-1"></i> Admin Login';
+            document.getElementById('admin-trigger-btn').className = "bg-cyan-950 border border-cyan-700 text-cyan-300 px-3 py-1 rounded hover:bg-cyan-900 transition cursor-pointer";
+            window.loadEducation();
+            window.loadCertificates();
+            alert("Admin Session Locked.");
+        };
+
         window.loadEducation = function() {
             const container = document.getElementById('education-container');
-            const eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
+            const list = JSON.parse(localStorage.getItem('myEducation') || '[]');
             container.innerHTML = '';
 
-            eduList.forEach((e, index) => {
-                let badgeColor = "bg-cyan-500/20 text-cyan-300 border-cyan-500/40";
-                if(e.category === "University" || e.category === "College") badgeColor = "bg-blue-500/20 text-blue-300 border-blue-500/40";
-                if(e.category === "Diploma") badgeColor = "bg-purple-500/20 text-purple-300 border-purple-500/40";
-                if(e.category === "Bootcamp") badgeColor = "bg-emerald-500/20 text-emerald-300 border-emerald-500/40";
-
-                const roleText = e.role === "teacher" ? '<span class="text-xs text-amber-300 font-mono ml-2">Instructor</span>' : '';
-
+            list.forEach((e, idx) => {
                 const card = document.createElement('div');
-                card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden";
+                card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4";
                 card.innerHTML = `
                     <div>
                         <div class="flex justify-between items-start">
-                            <div>
-                                <span class="text-xs px-2.5 py-1 rounded font-mono border ${badgeColor}">${e.category || 'Education'}</span>
-                                ${roleText}
-                            </div>
-                            <div class="space-x-1 ${isAdmin ? '' : 'hidden'}">
-                                <button onclick="window.editEducation(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2.5 py-1 rounded text-xs">Edit</button>
-                                <button onclick="window.deleteEducation(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2.5 py-1 rounded text-xs">Delete</button>
+                            <span class="text-xs px-2.5 py-1 rounded font-mono border bg-cyan-500/20 text-cyan-300 border-cyan-500/40">${e.category}</span>
+                            <div class="space-x-1 ${isAuthorized ? '' : 'hidden'}">
+                                <button onclick="window.editEdu(${idx})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-0.5 rounded text-xs cursor-pointer">Edit</button>
+                                <button onclick="window.delEdu(${idx})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-0.5 rounded text-xs cursor-pointer">Delete</button>
                             </div>
                         </div>
                         <h3 class="text-xl font-semibold mt-3">${e.title}</h3>
@@ -225,45 +229,39 @@
 
         window.addNewEducation = function() {
             const category = prompt("Category (University/College/Diploma/Bootcamp):", "University");
-            const title = prompt("Title (e.g. BS Cybersecurity):");
-            const institution = prompt("Institution Name:");
-            const role = prompt("Role ('student' or 'teacher'):", "student");
+            const title = prompt("Title:");
+            const institution = prompt("Institution:");
             const duration = prompt("Duration (e.g. 2024 - Present):", "");
             const skills = prompt("Skills (comma separated):", "");
             const description = prompt("Description:", "");
 
             if (title && institution) {
-                let eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
-                eduList.push({ category: category || 'Education', title, institution, role: role || 'student', duration: duration || '', skills: skills || '', description: description || '' });
-                localStorage.setItem('myEducation', JSON.stringify(eduList));
+                let list = JSON.parse(localStorage.getItem('myEducation') || '[]');
+                list.push({ category: category || 'Education', title, institution, duration, skills, description });
+                localStorage.setItem('myEducation', JSON.stringify(list));
                 window.loadEducation();
             }
         };
 
-        window.editEducation = function(index) {
-            let eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
-            const item = eduList[index];
-            if (!item) return;
-
-            const category = prompt("Edit Category:", item.category);
+        window.editEdu = function(idx) {
+            let list = JSON.parse(localStorage.getItem('myEducation') || '[]');
+            const item = list[idx];
             const title = prompt("Edit Title:", item.title);
             const institution = prompt("Edit Institution:", item.institution);
-            const role = prompt("Edit Role:", item.role);
             const duration = prompt("Edit Duration:", item.duration);
-            const skills = prompt("Edit Skills:", item.skills);
             const description = prompt("Edit Description:", item.description);
 
             if (title && institution) {
-                eduList[index] = { category: category || item.category, title, institution, role: role || item.role, duration: duration || '', skills: skills || '', description: description || '' };
-                localStorage.setItem('myEducation', JSON.stringify(eduList));
+                list[idx] = { ...item, title, institution, duration, description };
+                localStorage.setItem('myEducation', JSON.stringify(list));
                 window.loadEducation();
             }
         };
 
-        window.deleteEducation = function(index) {
-            let eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
-            eduList.splice(index, 1);
-            localStorage.setItem('myEducation', JSON.stringify(eduList));
+        window.delEdu = function(idx) {
+            let list = JSON.parse(localStorage.getItem('myEducation') || '[]');
+            list.splice(idx, 1);
+            localStorage.setItem('myEducation', JSON.stringify(list));
             window.loadEducation();
         };
 
@@ -272,25 +270,22 @@
             const certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
             container.innerHTML = '';
 
-            certs.forEach((c, index) => {
+            certs.forEach((c, idx) => {
                 const card = document.createElement('div');
-                card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden";
+                card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4";
                 card.innerHTML = `
                     <div>
                         <div class="flex justify-between items-start">
                             <i class="fa-solid fa-certificate text-3xl text-cyberaccent mb-3"></i>
-                            <div class="space-x-1 ${isAdmin ? '' : 'hidden'}">
-                                <button onclick="window.editCertificate(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2.5 py-1 rounded text-xs">Edit</button>
-                                <button onclick="window.deleteCertificate(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2.5 py-1 rounded text-xs">Delete</button>
+                            <div class="space-x-1 ${isAuthorized ? '' : 'hidden'}">
+                                <button onclick="window.editCert(${idx})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-0.5 rounded text-xs cursor-pointer">Edit</button>
+                                <button onclick="window.delCert(${idx})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-0.5 rounded text-xs cursor-pointer">Delete</button>
                             </div>
                         </div>
                         <h3 class="text-xl font-semibold">${c.title}</h3>
                         <p class="text-sm text-gray-400 mt-1">${c.issuer}</p>
                     </div>
-                    <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
-                        <span class="text-xs text-cyberaccent font-mono">${c.date}</span>
-                        ${c.link && c.link !== "#" ? `<a href="${c.link}" target="_blank" class="text-xs bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500 hover:text-black px-3 py-1.5 rounded transition font-mono">View</a>` : ''}
-                    </div>
+                    <div class="pt-4 border-t border-gray-800 text-xs text-cyberaccent font-mono">${c.date}</div>
                 `;
                 container.appendChild(card);
             });
@@ -304,22 +299,54 @@
 
             if (title && issuer) {
                 let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
-                certs.push({ title, issuer, date: date || "", link: link || "" });
+                certs.push({ title, issuer, date, link });
                 localStorage.setItem('myCertificates', JSON.stringify(certs));
                 window.loadCertificates();
             }
         };
 
-        window.editCertificate = function(index) {
+        window.editCert = function(idx) {
             let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
-            const c = certs[index];
-            if (!c) return;
-
+            const c = certs[idx];
             const title = prompt("Edit Title:", c.title);
             const issuer = prompt("Edit Issuer:", c.issuer);
             const date = prompt("Edit Date:", c.date);
-            const link = prompt("Edit Link:", c.link);
 
             if (title && issuer) {
-                certs[index] = { title, issuer, date: date || "", link: link || "" };
-                localStorag
+                certs[idx] = { ...c, title, issuer, date };
+                localStorage.setItem('myCertificates', JSON.stringify(certs));
+                window.loadCertificates();
+            }
+        };
+
+        window.delCert = function(idx) {
+            let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
+            certs.splice(idx, 1);
+            localStorage.setItem('myCertificates', JSON.stringify(certs));
+            window.loadCertificates();
+        };
+
+        window.editAboutSection = function() {
+            const newText = prompt("Edit Bio:", document.getElementById('about-text').innerText);
+            if (newText) {
+                document.getElementById('about-text').innerText = newText;
+                localStorage.setItem('myAboutText', newText);
+                alert("Updated!");
+            }
+        };
+
+        window.generateDynamicCV = function() {
+            const about = document.getElementById('about-text').innerText;
+            const edu = JSON.parse(localStorage.getItem('myEducation') || '[]');
+            const certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
+
+            let eduHTML = edu.map(e => `<li><strong>${e.title}</strong> (${e.category}) - ${e.institution} [${e.duration}]<br>${e.description}</li>`).join('');
+            let certHTML = certs.map(c => `<li><strong>${c.title}</strong> - ${c.issuer} (${c.date})</li>`).join('');
+
+            const win = window.open('', '_blank');
+            win.document.write(`<html><body><h1>Abdul Hayee Jamali - CV</h1><h2>About</h2><p>${about}</p><h2>Education</h2><ul>${eduHTML}</ul><h2>Certificates</h2><ul>${certHTML}</ul></body></html>`);
+            win.document.close();
+        };
+    </script>
+</body>
+</html>
