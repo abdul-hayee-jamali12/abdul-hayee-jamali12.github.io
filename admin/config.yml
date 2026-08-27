@@ -8,14 +8,14 @@ public_folder: "/images/uploads"
 
 collections:
   - name: "certificates"
-  - label: "Certificates"
-  - folder: "content/certificates"
-  - create: true
-  - fields:
+    label: "Certificates"
+    folder: "content/certificates"
+    create: true
+    fields:
       - {label: "Certificate Title", name: "title", widget: "string"}
       - {label: "Issuer", name: "issuer", widget: "string"}
       - {label: "Issue Date", name: "date", widget: "date"}
-      - {label: "Certificate File (PDF or Image)", name: "file", widget: "file"}
+      - {label: "Certificate File", name: "file", widget: "file"}
 
   - name: "projects"
     label: "Projects"
