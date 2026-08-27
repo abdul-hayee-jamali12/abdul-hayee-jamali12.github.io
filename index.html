@@ -44,14 +44,13 @@
     <header class="sticky top-0 z-50 bg-cyberdark/95 backdrop-blur-md border-b border-cyan-900/40">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-lg md:text-xl font-bold tracking-wider text-cyberaccent font-mono">&lt;ABDUL HAYEE&gt;</a>
-            <div class="flex items-center space-x-3 md:space-x-5 text-sm">
+            <div class="flex items-center space-x-4 md:space-x-6 text-sm">
                 <a href="#about" class="hover:text-cyberaccent transition">About</a>
-                <a href="#education" class="hover:text-cyberaccent transition">Education</a>
+                <a href="#education" class="hover:text-cyberaccent transition">Education & Training</a>
                 <a href="#certificates" class="hover:text-cyberaccent transition">Certificates</a>
-                <a href="#events" class="hover:text-cyberaccent transition">Bootcamps</a>
                 <a href="#contact" class="hover:text-cyberaccent transition">Contact</a>
                 <!-- Admin Toggle Button -->
-                <button onclick="toggleAdmin()" id="admin-btn" class="bg-gray-900 border border-cyan-900/50 hover:border-cyberaccent px-3 py-1.5 rounded-lg transition text-xs flex items-center space-x-1.5 font-mono text-gray-400">
+                <button onclick="window.toggleAdmin()" id="admin-btn" class="bg-gray-900 border border-cyan-900/50 hover:border-cyberaccent px-3 py-1.5 rounded-lg transition text-xs flex items-center space-x-1.5 font-mono text-gray-400">
                     <i class="fa-solid fa-lock text-cyberaccent" id="lock-icon"></i><span id="admin-text">Admin</span>
                 </button>
             </div>
@@ -60,25 +59,22 @@
 
     <!-- Admin Master Control Panel -->
     <div id="admin-panel" class="hidden bg-cyan-950/95 border-b border-cyan-800 py-3 px-6 text-center sticky top-16 z-40 shadow-xl">
-        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center text-xs md:text-sm">
-            <span class="text-cyberaccent font-mono"><i class="fa-solid fa-triangle-exclamation mr-2"></i>ADMIN MODE ACTIVE: Full Control Unlocked.</span>
-            <div class="space-x-2 mt-2 md:mt-0">
-                <button onclick="editAboutSection()" class="bg-gray-800 border border-cyan-500/50 text-cyan-300 font-bold px-3 py-1.5 rounded hover:bg-cyan-900 transition">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center text-xs md:text-sm gap-2">
+            <span class="text-cyberaccent font-mono"><i class="fa-solid fa-triangle-exclamation mr-1"></i>ADMIN MODE ACTIVE</span>
+            <div class="flex flex-wrap gap-2">
+                <button onclick="window.editAboutSection()" class="bg-gray-800 border border-cyan-500/50 text-cyan-300 font-bold px-3 py-1.5 rounded hover:bg-cyan-900 transition">
                     <i class="fa-solid fa-pen-to-square mr-1"></i> About
                 </button>
-                <button onclick="editContactLinks()" class="bg-gray-800 border border-cyan-500/50 text-cyan-300 font-bold px-3 py-1.5 rounded hover:bg-cyan-900 transition">
+                <button onclick="window.editContactLinks()" class="bg-gray-800 border border-cyan-500/50 text-cyan-300 font-bold px-3 py-1.5 rounded hover:bg-cyan-900 transition">
                     <i class="fa-solid fa-share-nodes mr-1"></i> Socials
                 </button>
-                <button onclick="addNewEducation()" class="bg-cyan-700 text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400 transition">
-                    <i class="fa-solid fa-graduation-cap mr-1"></i> Education
+                <button onclick="window.addNewEducation()" class="bg-cyan-600 text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400 transition">
+                    <i class="fa-solid fa-graduation-cap mr-1"></i> + Edu / Bootcamp
                 </button>
-                <button onclick="addNewCertificate()" class="bg-cyberaccent text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400 transition">
-                    <i class="fa-solid fa-plus mr-1"></i> Cert
+                <button onclick="window.addNewCertificate()" class="bg-cyberaccent text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400 transition">
+                    <i class="fa-solid fa-plus mr-1"></i> + Certificate
                 </button>
-                <button onclick="addNewEvent()" class="bg-cyan-600 text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400 transition">
-                    <i class="fa-solid fa-calendar-plus mr-1"></i> Bootcamp
-                </button>
-                <button onclick="toggleAdmin()" class="bg-red-900/80 text-red-200 px-3 py-1.5 rounded hover:bg-red-800 transition">Exit</button>
+                <button onclick="window.toggleAdmin()" class="bg-red-900/80 text-red-200 px-3 py-1.5 rounded hover:bg-red-800 transition">Exit</button>
             </div>
         </div>
     </div>
@@ -103,7 +99,7 @@
                 <a href="#contact" class="bg-cyberaccent text-black font-bold px-6 py-3 rounded-lg hover:bg-cyan-400 transition flex items-center space-x-2">
                     <i class="fa-solid fa-terminal"></i><span>Get in Touch</span>
                 </a>
-                <button onclick="generateDynamicCV()" class="bg-gray-900 border border-cyan-900/60 hover:border-cyberaccent px-6 py-3 rounded-lg transition flex items-center space-x-2 font-mono text-cyan-300">
+                <button onclick="window.generateDynamicCV()" class="bg-gray-900 border border-cyan-900/60 hover:border-cyberaccent px-6 py-3 rounded-lg transition flex items-center space-x-2 font-mono text-cyan-300">
                     <i class="fa-solid fa-file-arrow-down"></i><span>Download Live CV</span>
                 </button>
             </div>
@@ -129,11 +125,11 @@
         </div>
     </section>
 
-    <!-- Education Section -->
+    <!-- Unified Education & Training Section (Uni, College, Diploma, Bootcamp) -->
     <section id="education" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
-        <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Education & Degrees</h2>
+        <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Education, Diplomas & Bootcamps</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="education-container">
-            <!-- Rendered dynamically via JavaScript -->
+            <!-- Dynamic Content -->
         </div>
     </section>
 
@@ -141,15 +137,7 @@
     <section id="certificates" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
         <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Certificates & Credentials</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="certs-container">
-            <!-- Rendered dynamically via JavaScript -->
-        </div>
-    </section>
-
-    <!-- Bootcamps & Training Events Section -->
-    <section id="events" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
-        <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Bootcamps & Training Sessions</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-container">
-            <!-- Rendered dynamically via JavaScript -->
+            <!-- Dynamic Content -->
         </div>
     </section>
 
@@ -170,27 +158,37 @@
         <p>&copy; 2026 Abdul Hayee Jamali. All rights reserved. Secured & Encrypted.</p>
     </footer>
 
-    <!-- JavaScript with Education, Certificates, Bootcamps and CV Sync -->
+    <!-- JavaScript: Dynamic CRUD, Bulletproof Global Functions, Auto-Sync CV -->
     <script>
         const CORRECT_PASSWORD = "Website@shani1202";
         let isAdmin = false;
 
-        const defaultEducation = [
-            { degree: "BS in Cybersecurity", institution: "University of Peshawar", duration: "2024 - Present", details: "Specialized in OT Security, SCADA/ICS Defense, and Network Protocols." },
-            { degree: "Diploma of Associate Engineering (DAE) in Electronics & Communication", institution: "Polytechnic Institute", duration: "3 Years", details: "Covered hardware systems, communication engineering, and core electronics." }
-        ];
-        const defaultCerts = [
-            { title: "Critical Infrastructure Protection", issuer: "OPSWAT Academy", date: "August 2026", link: "#" }
-        ];
-        const defaultEvents = [
-            { title: "Introduction to OT Security & SCADA Defense", role: "teacher", duration: "3 Days", skills: "SCADA, ICS Protocols, Wireshark", date: "September 15, 2026", description: "A live hands-on bootcamp for cybersecurity students." }
+        // Initial Data setup
+        const initialEducation = [
+            { category: "University", title: "BS in Cybersecurity", institution: "University of Peshawar", role: "student", duration: "2024 - Present", skills: "OT Security, SCADA/ICS Defense, Network Protocols", description: "Bachelor's degree focusing on defensive security frameworks and critical infrastructure defense." },
+            { category: "Diploma", title: "DAE in Electronics & Communication", institution: "Polytechnic Institute", role: "student", duration: "3 Years", skills: "Electronics, Hardware Systems, Communication Engineering", description: "Completed 3-year Diploma of Associate Engineering in Electronics." },
+            { category: "Bootcamp", title: "OT Security & SCADA Protocols", institution: "Tech Security Community", role: "teacher", duration: "3 Days", skills: "SCADA Protocols, Wireshark, ICS Security", description: "Conducted practical training for cybersecurity students on ICS defense." }
         ];
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedAbout = localStorage.getItem('myAboutText');
-            if (savedAbout) {
-                document.getElementById('about-text').innerText = savedAbout;
+        const initialCerts = [
+            { title: "Critical Infrastructure Protection", issuer: "OPSWAT Academy", date: "August 2026", link: "#" }
+        ];
+
+        // Ensure database in localStorage exists on load
+        function initDB() {
+            if (!localStorage.getItem('myEducation')) {
+                localStorage.setItem('myEducation', JSON.stringify(initialEducation));
             }
+            if (!localStorage.getItem('myCertificates')) {
+                localStorage.setItem('myCertificates', JSON.stringify(initialCerts));
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initDB();
+
+            const savedAbout = localStorage.getItem('myAboutText');
+            if (savedAbout) document.getElementById('about-text').innerText = savedAbout;
 
             const savedSocials = JSON.parse(localStorage.getItem('mySocials'));
             if (savedSocials) {
@@ -199,37 +197,43 @@
                 if(savedSocials.email) document.getElementById('social-email').href = "mailto:" + savedSocials.email;
             }
 
-            loadEducation();
-            loadCertificates();
-            loadEvents();
+            window.loadEducation();
+            window.loadCertificates();
         });
 
-        // EDUCATION LOAD
-        function loadEducation() {
+        // 1. EDUCATION & BOOTCAMP CRUD
+        window.loadEducation = function() {
             const container = document.getElementById('education-container');
-            let edu = JSON.parse(localStorage.getItem('myEducation'));
-            if (!edu) {
-                edu = defaultEducation;
-                localStorage.setItem('myEducation', JSON.stringify(edu));
-            }
-
+            const eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
             container.innerHTML = '';
-            edu.forEach((e, index) => {
+
+            eduList.forEach((e, index) => {
+                let badgeColor = "bg-cyan-500/20 text-cyan-300 border-cyan-500/40";
+                if(e.category === "University" || e.category === "College") badgeColor = "bg-blue-500/20 text-blue-300 border-blue-500/40";
+                if(e.category === "Diploma") badgeColor = "bg-purple-500/20 text-purple-300 border-purple-500/40";
+                if(e.category === "Bootcamp") badgeColor = "bg-emerald-500/20 text-emerald-300 border-emerald-500/40";
+
+                const roleText = e.role === "teacher" ? '<span class="text-xs text-amber-300 font-mono ml-2"><i class="fa-solid fa-chalkboard-user mr-1"></i>Instructor</span>' : '';
+
                 const card = document.createElement('div');
                 card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden";
                 card.innerHTML = `
                     <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
                     <div>
                         <div class="flex justify-between items-start">
-                            <i class="fa-solid fa-graduation-cap text-3xl text-cyberaccent mb-3"></i>
+                            <div>
+                                <span class="text-xs px-2.5 py-1 rounded font-mono border ${badgeColor}">${e.category || 'Education'}</span>
+                                ${roleText}
+                            </div>
                             <div class="space-x-1 ${isAdmin ? '' : 'hidden'}">
-                                <button onclick="editEducation(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900 cursor-pointer" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteEducation(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900 cursor-pointer" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="window.editEducation(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="window.deleteEducation(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900" title="Delete"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
-                        <h3 class="text-xl font-semibold">${e.degree}</h3>
+                        <h3 class="text-xl font-semibold mt-3">${e.title}</h3>
                         <p class="text-sm text-cyan-300 font-mono mt-1">${e.institution}</p>
-                        <p class="text-sm text-gray-300 mt-2">${e.details}</p>
+                        <p class="text-sm text-gray-300 mt-2">${e.description}</p>
+                        ${e.skills ? `<p class="text-xs text-cyberaccent font-mono mt-3"><i class="fa-solid fa-brain mr-1"></i>Skills: ${e.skills}</p>` : ''}
                     </div>
                     <div class="pt-4 border-t border-gray-800 flex justify-between items-center text-xs text-gray-400 font-mono">
                         <span><i class="fa-regular fa-calendar mr-1"></i>${e.duration}</span>
@@ -237,17 +241,63 @@
                 `;
                 container.appendChild(card);
             });
-        }
+        };
 
-        function loadCertificates() {
-            const container = document.getElementById('certs-container');
-            let certs = JSON.parse(localStorage.getItem('myCertificates'));
-            if (!certs) {
-                certs = defaultCerts;
-                localStorage.setItem('myCertificates', JSON.stringify(certs));
+        window.addNewEducation = function() {
+            const category = prompt("Type Category (University / College / Diploma / Bootcamp / Course):", "University");
+            const title = prompt("Degree / Program / Topic Title (e.g., BS Cybersecurity / DAE):");
+            const institution = prompt("Institution / Organization / Platform:");
+            const role = prompt("Role ('student' or 'teacher'):", "student");
+            const duration = prompt("Duration / Years (e.g. 2024 - Present or 3 Days):", "2024 - Present");
+            const skills = prompt("Skills covered (e.g. SCADA, Python, Electronics):", "");
+            const description = prompt("Short Description / Details:", "");
+
+            if (title && institution) {
+                let eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
+                eduList.push({ category: category || 'Education', title, institution, role: role || 'student', duration: duration || '', skills: skills || '', description: description || '' });
+                localStorage.setItem('myEducation', JSON.stringify(eduList));
+                window.loadEducation();
+                alert("Added successfully!");
             }
-            
+        };
+
+        window.editEducation = function(index) {
+            let eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
+            const item = eduList[index];
+            if (!item) return;
+
+            const category = prompt("Edit Category (University/College/Diploma/Bootcamp):", item.category);
+            const title = prompt("Edit Title:", item.title);
+            const institution = prompt("Edit Institution:", item.institution);
+            const role = prompt("Edit Role ('student' or 'teacher'):", item.role);
+            const duration = prompt("Edit Duration:", item.duration);
+            const skills = prompt("Edit Skills:", item.skills);
+            const description = prompt("Edit Description:", item.description);
+
+            if (title && institution) {
+                eduList[index] = { category: category || item.category, title, institution, role: role || item.role, duration: duration || '', skills: skills || '', description: description || '' };
+                localStorage.setItem('myEducation', JSON.stringify(eduList));
+                window.loadEducation();
+                alert("Updated successfully!");
+            }
+        };
+
+        window.deleteEducation = function(index) {
+            if (confirm("Are you sure you want to delete this education/bootcamp entry?")) {
+                let eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
+                eduList.splice(index, 1);
+                localStorage.setItem('myEducation', JSON.stringify(eduList));
+                window.loadEducation();
+                alert("Deleted successfully!");
+            }
+        };
+
+        // 2. CERTIFICATES CRUD
+        window.loadCertificates = function() {
+            const container = document.getElementById('certs-container');
+            const certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
             container.innerHTML = '';
+
             certs.forEach((c, index) => {
                 const card = document.createElement('div');
                 card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden";
@@ -257,8 +307,8 @@
                         <div class="flex justify-between items-start">
                             <i class="fa-solid fa-certificate text-3xl text-cyberaccent mb-3"></i>
                             <div class="space-x-1 ${isAdmin ? '' : 'hidden'}">
-                                <button onclick="editCertificate(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900 cursor-pointer" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteCertificate(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900 cursor-pointer" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="window.editCertificate(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="window.deleteCertificate(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900" title="Delete"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
                         <h3 class="text-xl font-semibold">${c.title}</h3>
@@ -271,50 +321,53 @@
                 `;
                 container.appendChild(card);
             });
-        }
+        };
 
-        function loadEvents() {
-            const container = document.getElementById('events-container');
-            let events = JSON.parse(localStorage.getItem('myEvents'));
-            if (!events) {
-                events = defaultEvents;
-                localStorage.setItem('myEvents', JSON.stringify(events));
+        window.addNewCertificate = function() {
+            const title = prompt("Enter Certificate Title:");
+            const issuer = prompt("Enter Issuer:");
+            const date = prompt("Enter Date:");
+            const link = prompt("Enter Credential Link (Google Drive / Direct URL):");
+
+            if (title && issuer) {
+                let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
+                certs.push({ title, issuer, date: date || "", link: link || "" });
+                localStorage.setItem('myCertificates', JSON.stringify(certs));
+                window.loadCertificates();
+                alert("Certificate added!");
             }
+        };
 
-            container.innerHTML = '';
-            events.forEach((e, index) => {
-                const roleBadge = e.role === 'teacher' 
-                    ? '<span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded font-mono"><i class="fa-solid fa-chalkboard-user mr-1"></i>Taught / Instructor</span>' 
-                    : '<span class="text-xs bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded font-mono"><i class="fa-solid fa-graduation-cap mr-1"></i>Attended / Student</span>';
+        window.editCertificate = function(index) {
+            let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
+            const c = certs[index];
+            if (!c) return;
 
-                const card = document.createElement('div');
-                card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden";
-                card.innerHTML = `
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
-                    <div>
-                        <div class="flex justify-between items-start">
-                            <div class="space-y-2">
-                                ${roleBadge}
-                                <span class="text-xs bg-gray-800 text-gray-300 border border-gray-700 px-2 py-1 rounded font-mono ml-1"><i class="fa-regular fa-clock mr-1"></i>${e.duration || 'N/A'}</span>
-                            </div>
-                            <div class="space-x-1 ${isAdmin ? '' : 'hidden'}">
-                                <button onclick="editEvent(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900 cursor-pointer" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteEvent(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900 cursor-pointer" title="Delete"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-semibold mt-3">${e.title}</h3>
-                        <p class="text-sm text-gray-300 mt-2">${e.description}</p>
-                        ${e.skills ? `<p class="text-xs text-cyberaccent font-mono mt-3"><i class="fa-solid fa-brain mr-1"></i>Skills: ${e.skills}</p>` : ''}
-                    </div>
-                    <div class="pt-4 border-t border-gray-800 flex justify-between items-center text-xs text-gray-400 font-mono">
-                        <span><i class="fa-solid fa-calendar-days mr-1"></i>${e.date}</span>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
+            const title = prompt("Edit Title:", c.title);
+            const issuer = prompt("Edit Issuer:", c.issuer);
+            const date = prompt("Edit Date:", c.date);
+            const link = prompt("Edit Credential Link:", c.link);
 
-        function toggleAdmin() {
+            if (title && issuer) {
+                certs[index] = { title, issuer, date: date || "", link: link || "" };
+                localStorage.setItem('myCertificates', JSON.stringify(certs));
+                window.loadCertificates();
+                alert("Certificate updated!");
+            }
+        };
+
+        window.deleteCertificate = function(index) {
+            if (confirm("Are you sure you want to delete this certificate?")) {
+                let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
+                certs.splice(index, 1);
+                localStorage.setItem('myCertificates', JSON.stringify(certs));
+                window.loadCertificates();
+                alert("Certificate deleted!");
+            }
+        };
+
+        // 3. ADMIN TOGGLE & BASIC EDITS
+        window.toggleAdmin = function() {
             if (!isAdmin) {
                 const pass = prompt("Enter Admin Password:");
                 if (pass) {
@@ -322,9 +375,8 @@
                         isAdmin = true;
                         document.getElementById('admin-panel').classList.remove('hidden');
                         document.getElementById('lock-icon').classList.replace('fa-lock', 'fa-unlock');
-                        loadEducation();
-                        loadCertificates();
-                        loadEvents();
+                        window.loadEducation();
+                        window.loadCertificates();
                         alert("Secure Session Unlocked!");
                     } else {
                         alert("Access Denied: Incorrect Password!");
@@ -334,14 +386,13 @@
                 isAdmin = false;
                 document.getElementById('admin-panel').classList.add('hidden');
                 document.getElementById('lock-icon').classList.replace('fa-unlock', 'fa-lock');
-                loadEducation();
-                loadCertificates();
-                loadEvents();
+                window.loadEducation();
+                window.loadCertificates();
                 alert("Admin Session Locked.");
             }
-        }
+        };
 
-        function editAboutSection() {
+        window.editAboutSection = function() {
             const currentText = document.getElementById('about-text').innerText;
             const newText = prompt("Edit About Me Bio:", currentText);
             if (newText !== null) {
@@ -349,9 +400,9 @@
                 localStorage.setItem('myAboutText', newText);
                 alert("About section updated!");
             }
-        }
+        };
 
-        function editContactLinks() {
+        window.editContactLinks = function() {
             const linkedin = prompt("Enter LinkedIn URL:", document.getElementById('social-linkedin').href);
             const github = prompt("Enter GitHub URL:", document.getElementById('social-github').href);
             const email = prompt("Enter Email Address:", document.getElementById('social-email').href.replace('mailto:', ''));
@@ -364,170 +415,41 @@
                 document.getElementById('social-email').href = "mailto:" + email;
                 alert("Social links updated!");
             }
-        }
+        };
 
-        // EDUCATION CRUD
-        function addNewEducation() {
-            const degree = prompt("Enter Degree / Diploma Title (e.g., BS Cybersecurity / DAE Electronics):");
-            const institution = prompt("Enter Institution Name (e.g., University of Peshawar):");
-            const duration = prompt("Enter Duration / Years (e.g., 2024 - Present or 3 Years):");
-            const details = prompt("Enter Key Details / Specialization:");
-
-            if (degree && institution) {
-                let edu = JSON.parse(localStorage.getItem('myEducation') || '[]');
-                edu.push({ degree, institution, duration: duration || "", details: details || "" });
-                localStorage.setItem('myEducation', JSON.stringify(edu));
-                loadEducation();
-                alert("Education added!");
-            }
-        }
-
-        function editEducation(index) {
-            let edu = JSON.parse(localStorage.getItem('myEducation'));
-            const e = edu[index];
-            const degree = prompt("Edit Degree/Title:", e.degree);
-            const institution = prompt("Edit Institution:", e.institution);
-            const duration = prompt("Edit Duration:", e.duration);
-            const details = prompt("Edit Details:", e.details);
-
-            if (degree && institution) {
-                edu[index] = { degree, institution, duration: duration || "", details: details || "" };
-                localStorage.setItem('myEducation', JSON.stringify(edu));
-                loadEducation();
-                alert("Education updated!");
-            }
-        }
-
-        function deleteEducation(index) {
-            if (confirm("Delete this education entry?")) {
-                let edu = JSON.parse(localStorage.getItem('myEducation'));
-                edu.splice(index, 1);
-                localStorage.setItem('myEducation', JSON.stringify(edu));
-                loadEducation();
-                alert("Education deleted!");
-            }
-        }
-
-        function addNewCertificate() {
-            const title = prompt("Enter Certificate Title:");
-            const issuer = prompt("Enter Issuer:");
-            const date = prompt("Enter Date:");
-            const link = prompt("Enter Credential Link:");
-
-            if (title && issuer) {
-                let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
-                certs.push({ title, issuer, date: date || "", link: link || "" });
-                localStorage.setItem('myCertificates', JSON.stringify(certs));
-                loadCertificates();
-                alert("Certificate added!");
-            }
-        }
-
-        function editCertificate(index) {
-            let certs = JSON.parse(localStorage.getItem('myCertificates'));
-            const c = certs[index];
-            const title = prompt("Edit Title:", c.title);
-            const issuer = prompt("Edit Issuer:", c.issuer);
-            const date = prompt("Edit Date:", c.date);
-            const link = prompt("Edit Link:", c.link);
-
-            if (title && issuer) {
-                certs[index] = { title, issuer, date: date || "", link: link || "" };
-                localStorage.setItem('myCertificates', JSON.stringify(certs));
-                loadCertificates();
-                alert("Certificate updated!");
-            }
-        }
-
-        function deleteCertificate(index) {
-            if (confirm("Delete this certificate?")) {
-                let certs = JSON.parse(localStorage.getItem('myCertificates'));
-                certs.splice(index, 1);
-                localStorage.setItem('myCertificates', JSON.stringify(certs));
-                loadCertificates();
-                alert("Certificate deleted!");
-            }
-        }
-
-        function addNewEvent() {
-            const title = prompt("Enter Bootcamp/Session Title:");
-            const roleInput = prompt("Role Type? Type 'teacher' if you taught it, or 'student' if you attended it:", "teacher");
-            const duration = prompt("Enter Duration (e.g. 3 Days / 2 Weeks):", "3 Days");
-            const skills = prompt("Enter Skills Covered (comma separated):", "Python, Security");
-            const date = prompt("Enter Date (e.g. Sept 15, 2026):");
-            const description = prompt("Enter Short Description:");
-
-            if (title) {
-                let events = JSON.parse(localStorage.getItem('myEvents') || '[]');
-                const role = (roleInput && roleInput.toLowerCase().includes('teach')) ? 'teacher' : 'student';
-                events.push({ title, role, duration: duration || "1 Day", skills: skills || "", date: date || "", description: description || "" });
-                localStorage.setItem('myEvents', JSON.stringify(events));
-                loadEvents();
-                alert("Bootcamp session added!");
-            }
-        }
-
-        function editEvent(index) {
-            let events = JSON.parse(localStorage.getItem('myEvents'));
-            const e = events[index];
-            const title = prompt("Edit Title:", e.title);
-            const roleInput = prompt("Edit Role Type ('teacher' or 'student'):", e.role || "teacher");
-            const duration = prompt("Edit Duration:", e.duration || "3 Days");
-            const skills = prompt("Edit Skills Covered:", e.skills || "");
-            const date = prompt("Edit Date:", e.date);
-            const description = prompt("Edit Description:", e.description);
-
-            if (title) {
-                const role = (roleInput && roleInput.toLowerCase().includes('teach')) ? 'teacher' : 'student';
-                events[index] = { title, role, duration: duration || "", skills: skills || "", date: date || "", description: description || "" };
-                localStorage.setItem('myEvents', JSON.stringify(events));
-                loadEvents();
-                alert("Bootcamp updated!");
-            }
-        }
-
-        function deleteEvent(index) {
-            if (confirm("Delete this bootcamp session?")) {
-                let events = JSON.parse(localStorage.getItem('myEvents'));
-                events.splice(index, 1);
-                localStorage.setItem('myEvents', JSON.stringify(events));
-                loadEvents();
-                alert("Bootcamp deleted!");
-            }
-        }
-
-        // AUTO-SYNC DYNAMIC CV GENERATOR WITH EDUCATION, SKILLS & ROLES
-        function generateDynamicCV() {
+        // 4. SMART DYNAMIC CV GENERATOR
+        window.generateDynamicCV = function() {
             const about = document.getElementById('about-text').innerText;
             const eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
             const certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
-            const events = JSON.parse(localStorage.getItem('myEvents') || '[]');
             const socials = JSON.parse(localStorage.getItem('mySocials') || '{}');
 
-            const teachingEvents = events.filter(e => e.role === 'teacher');
-            const studentEvents = events.filter(e => e.role !== 'teacher');
+            // Categorize Education vs Bootcamps
+            const formalEdu = eduList.filter(e => e.category === 'University' || e.category === 'College' || e.category === 'Diploma');
+            const bootcampsTaught = eduList.filter(e => (e.category === 'Bootcamp' || e.category === 'Course') && e.role === 'teacher');
+            const bootcampsAttended = eduList.filter(e => (e.category === 'Bootcamp' || e.category === 'Course') && e.role !== 'teacher');
 
-            let eduHTML = eduList.map(e => `<li><strong>${e.degree}</strong> - ${e.institution} (${e.duration})<br>${e.details}</li>`).join('');
+            let eduHTML = formalEdu.map(e => `<li><strong>${e.title}</strong> (${e.category}) - ${e.institution} [${e.duration}]<br>${e.description}</li>`).join('');
             let certsHTML = certs.map(c => `<li><strong>${c.title}</strong> - ${c.issuer} (${c.date})</li>`).join('');
-            let teachHTML = teachingEvents.map(e => `<li><strong>${e.title}</strong> [Duration: ${e.duration}] (${e.date})<br><em>Skills Taught: ${e.skills || 'N/A'}</em><br>${e.description}</li>`).join('');
-            let studHTML = studentEvents.map(e => `<li><strong>${e.title}</strong> [Duration: ${e.duration}] (${e.date})<br><em>Skills Acquired: ${e.skills || 'N/A'}</em><br>${e.description}</li>`).join('');
+            let teachHTML = bootcampsTaught.map(e => `<li><strong>${e.title}</strong> [Duration: ${e.duration}] (${e.institution})<br><em>Skills Taught: ${e.skills || 'N/A'}</em><br>${e.description}</li>`).join('');
+            let studHTML = bootcampsAttended.map(e => `<li><strong>${e.title}</strong> [Duration: ${e.duration}] (${e.institution})<br><em>Skills Acquired: ${e.skills || 'N/A'}</em><br>${e.description}</li>`).join('');
 
-            // Collect all unique skills from events & education
+            // Collect unique skills
             let allSkills = new Set();
-            events.forEach(e => {
+            eduList.forEach(e => {
                 if(e.skills) {
                     e.skills.split(',').forEach(s => allSkills.add(s.trim()));
                 }
             });
             let skillsArray = Array.from(allSkills);
-            let skillsHTML = skillsArray.length > 0 ? skillsArray.map(s => `<span>${s}</span>`).join(' • ') : 'Cybersecurity, OT Security, ICS/SCADA, Python, Electronics';
+            let skillsHTML = skillsArray.length > 0 ? skillsArray.map(s => `<span>${s}</span>`).join(' • ') : 'Cybersecurity, OT Security, SCADA/ICS, Python, Electronics';
 
             const cvWindow = window.open('', '_blank');
             cvWindow.document.write(`
                 <!DOCTYPE html>
                 <html>
                 <head>
-                    <title>Abdul Hayee Jamali - CV</title>
+                    <title>Abdul Hayee Jamali - Dynamic CV</title>
                     <style>
                         body { font-family: Arial, sans-serif; padding: 40px; color: #111; max-width: 800px; margin: auto; line-height: 1.6; }
                         h1 { border-bottom: 2px solid #06b6d4; padding-bottom: 10px; color: #0a0f1d; margin-bottom: 5px; }
@@ -548,25 +470,25 @@
                     <h2>Professional Summary</h2>
                     <p>${about}</p>
 
-                    <h2>Education & Qualifications</h2>
-                    <ul>${eduHTML || '<li>No education added yet.</li>'}</ul>
-
                     <h2>Technical & Professional Skills</h2>
                     <div class="skills-box">${skillsHTML}</div>
+
+                    <h2>Education & Qualifications</h2>
+                    <ul>${eduHTML || '<li>No formal education added yet.</li>'}</ul>
                     
                     <h2>Certificates & Credentials</h2>
                     <ul>${certsHTML || '<li>No certificates added yet.</li>'}</ul>
 
-                    <h2>Training Conducted (As Instructor/Teacher)</h2>
+                    <h2>Bootcamps & Training Conducted (As Instructor)</h2>
                     <ul>${teachHTML || '<li>No teaching sessions recorded yet.</li>'}</ul>
 
-                    <h2>Bootcamps Attended (As a Student)</h2>
-                    <ul>${studHTML || '<li>No attended bootcamps recorded yet.</li>'}</ul>
+                    <h2>Bootcamps & Courses Completed (As Student)</h2>
+                    <ul>${studHTML || '<li>No attended courses recorded yet.</li>'}</ul>
                 </body>
                 </html>
             `);
             cvWindow.document.close();
-        }
+        };
     </script>
 </body>
 </html>
