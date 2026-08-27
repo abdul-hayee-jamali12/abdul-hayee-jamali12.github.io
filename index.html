@@ -22,6 +22,8 @@
     </script>
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Identity Services SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         .cyber-grid {
             background-image: linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
@@ -40,34 +42,44 @@
 </head>
 <body class="bg-cyberdark text-gray-100 font-sans antialiased cyber-grid selection:bg-cyberaccent selection:text-black">
 
-    <!-- Secure Top Bar with Hidden Admin Trigger -->
-    <div class="bg-gray-900 border-b border-cyan-900/50 py-2 px-4 text-xs font-mono flex justify-between items-center sticky top-0 z-50">
+    <!-- Top Status Bar & Google Auth -->
+    <div class="bg-gray-900 border-b border-cyan-900/50 py-2 px-4 text-xs font-mono flex flex-wrap justify-between items-center sticky top-0 z-50 gap-2">
         <div class="flex items-center space-x-2 text-cyan-400">
             <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-            <span>SECURE_MODE // READ_ONLY</span>
+            <span id="session-status">AUTH_REQUIRED // READ_ONLY</span>
         </div>
-        <div>
-            <button onclick="window.triggerAdminLogin()" id="admin-trigger-btn" class="bg-cyan-950 border border-cyan-700 text-cyan-300 px-3 py-1 rounded hover:bg-cyan-900 transition cursor-pointer">
-                <i class="fa-solid fa-lock mr-1"></i> Admin Login
+        
+        <!-- Google Sign-In Container -->
+        <div id="auth-container" class="flex items-center space-x-2">
+            <!-- Google Button with your Client ID -->
+            <div id="g_id_onload"
+                 data-client_id="1035381499300-rgi7eq72u988fdaip740spfdcom5nrf6.apps.googleusercontent.com"
+                 data-callback="handleGoogleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin" data-type="standard" data-size="small" data-theme="dark" data-text="signin"></div>
+            
+            <!-- Logout Button (Hidden by default) -->
+            <button onclick="logoutAdmin()" id="logout-btn" class="hidden bg-red-950 border border-red-800 text-red-300 px-3 py-1 rounded hover:bg-red-900 transition">
+                <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Logout
             </button>
         </div>
     </div>
 
-    <!-- Admin Master Panel (Hidden by default, unlocks only via password) -->
-    <div id="admin-control-panel" class="hidden bg-cyan-950 border-b-2 border-cyberaccent py-3 px-6 text-center sticky top-8 z-40 shadow-2xl">
+    <!-- Admin Master Control Panel (Unlocks only for your verified Gmail) -->
+    <div id="admin-control-panel" class="hidden bg-cyan-950 border-b-2 border-cyberaccent py-3 px-6 text-center sticky top-9 z-40 shadow-2xl">
         <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center text-xs md:text-sm gap-2">
-            <span class="text-cyberaccent font-bold font-mono"><i class="fa-solid fa-triangle-exclamation mr-1"></i> ADMIN SESSION ACTIVE</span>
+            <span class="text-cyberaccent font-bold font-mono"><i class="fa-solid fa-shield-check mr-1"></i> VERIFIED ADMIN SESSION</span>
             <div class="flex flex-wrap gap-2">
-                <button onclick="window.addNewEducation()" class="bg-cyan-600 text-black font-bold px-3 py-1 rounded text-xs cursor-pointer">+ Add Edu/Bootcamp</button>
-                <button onclick="window.addNewCertificate()" class="bg-cyberaccent text-black font-bold px-3 py-1 rounded text-xs cursor-pointer">+ Add Cert</button>
-                <button onclick="window.editAboutSection()" class="bg-gray-800 border border-cyan-500 text-cyan-300 px-3 py-1 rounded text-xs cursor-pointer">Edit Bio</button>
-                <button onclick="window.lockAdminSession()" class="bg-red-900 text-white px-3 py-1 rounded text-xs cursor-pointer">Lock Admin</button>
+                <button onclick="addNewEducation()" class="bg-cyan-600 text-black font-bold px-3 py-1 rounded text-xs cursor-pointer">+ Add Edu/Bootcamp</button>
+                <button onclick="addNewCertificate()" class="bg-cyberaccent text-black font-bold px-3 py-1 rounded text-xs cursor-pointer">+ Add Cert</button>
+                <button onclick="editAboutSection()" class="bg-gray-800 border border-cyan-500 text-cyan-300 px-3 py-1 rounded text-xs cursor-pointer">Edit Bio</button>
             </div>
         </div>
     </div>
 
     <!-- Navigation -->
-    <header class="sticky top-8 z-30 bg-cyberdark/95 backdrop-blur-md border-b border-cyan-900/40">
+    <header class="sticky top-9 z-30 bg-cyberdark/95 backdrop-blur-md border-b border-cyan-900/40">
         <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#" class="text-lg font-bold tracking-wider text-cyberaccent font-mono">&lt;ABDUL HAYEE&gt;</a>
             <div class="flex items-center space-x-6 text-sm">
@@ -95,7 +107,7 @@
                 <a href="#contact" class="bg-cyberaccent text-black font-bold px-6 py-3 rounded-lg hover:bg-cyan-400 transition flex items-center space-x-2">
                     <i class="fa-solid fa-terminal"></i><span>Get in Touch</span>
                 </a>
-                <button onclick="window.generateDynamicCV()" class="bg-gray-900 border border-cyan-900/60 hover:border-cyberaccent px-6 py-3 rounded-lg transition flex items-center space-x-2 font-mono text-cyan-300">
+                <button onclick="generateDynamicCV()" class="bg-gray-900 border border-cyan-900/60 hover:border-cyberaccent px-6 py-3 rounded-lg transition flex items-center space-x-2 font-mono text-cyan-300">
                     <i class="fa-solid fa-file-arrow-down"></i><span>Download Live CV</span>
                 </button>
             </div>
@@ -149,9 +161,9 @@
         <p>&copy; 2026 Abdul Hayee Jamali. All rights reserved. Secured & Encrypted.</p>
     </footer>
 
-    <!-- Secure JavaScript Engine -->
+    <!-- JavaScript with Google OAuth Verification -->
     <script>
-        const CORRECT_PASSWORD = "Website@shani1202";
+        const AUTHORIZED_EMAIL = "jamaliabdulhayee111@gmail.com";
         let isAuthorized = false;
 
         const defaultEdu = [
@@ -163,6 +175,49 @@
             { title: "Critical Infrastructure Protection", issuer: "OPSWAT Academy", date: "August 2026", link: "#" }
         ];
 
+        function decodeJwtResponse(token) {
+            let base64Url = token.split('.')[1];
+            let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+
+        function handleGoogleCredentialResponse(response) {
+            const responsePayload = decodeJwtResponse(response.credential);
+            
+            if (responsePayload.email === AUTHORIZED_EMAIL) {
+                isAuthorized = true;
+                sessionStorage.setItem('isAdminAuth', 'true');
+                
+                document.getElementById('admin-control-panel').classList.remove('hidden');
+                document.getElementById('logout-btn').classList.remove('hidden');
+                document.querySelector('.g_id_signin').classList.add('hidden');
+                document.getElementById('session-status').innerText = `AUTHENTICATED // ${responsePayload.email}`;
+                document.getElementById('session-status').className = "text-emerald-400 font-bold";
+
+                loadEducation();
+                loadCertificates();
+                alert(`Welcome Abdul Hayee! Admin Session Unlocked.`);
+            } else {
+                alert(`Access Denied: ${responsePayload.email} is not authorized.`);
+            }
+        }
+
+        function logoutAdmin() {
+            isAuthorized = false;
+            sessionStorage.removeItem('isAdminAuth');
+            document.getElementById('admin-control-panel').classList.add('hidden');
+            document.getElementById('logout-btn').classList.add('hidden');
+            document.querySelector('.g_id_signin').classList.remove('hidden');
+            document.getElementById('session-status').innerText = "AUTH_REQUIRED // READ_ONLY";
+            document.getElementById('session-status').className = "text-cyan-400";
+            loadEducation();
+            loadCertificates();
+            alert("Logged out successfully.");
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             if (!localStorage.getItem('myEducation')) localStorage.setItem('myEducation', JSON.stringify(defaultEdu));
             if (!localStorage.getItem('myCertificates')) localStorage.setItem('myCertificates', JSON.stringify(defaultCerts));
@@ -170,36 +225,20 @@
             const savedAbout = localStorage.getItem('myAboutText');
             if (savedAbout) document.getElementById('about-text').innerText = savedAbout;
 
-            window.loadEducation();
-            window.loadCertificates();
-        });
-
-        window.triggerAdminLogin = function() {
-            const pass = prompt("Enter Admin Password:");
-            if (pass && pass.trim() === CORRECT_PASSWORD) {
+            if (sessionStorage.getItem('isAdminAuth') === 'true') {
                 isAuthorized = true;
                 document.getElementById('admin-control-panel').classList.remove('hidden');
-                document.getElementById('admin-trigger-btn').innerHTML = '<i class="fa-solid fa-unlock mr-1 text-green-400"></i> Admin Unlocked';
-                document.getElementById('admin-trigger-btn').className = "bg-green-950 border border-green-700 text-green-300 px-3 py-1 rounded";
-                window.loadEducation();
-                window.loadCertificates();
-                alert("Access Granted!");
-            } else if (pass) {
-                alert("Access Denied: Incorrect Password!");
+                document.getElementById('logout-btn').classList.remove('hidden');
+                document.querySelector('.g_id_signin').classList.add('hidden');
+                document.getElementById('session-status').innerText = `AUTHENTICATED // ${AUTHORIZED_EMAIL}`;
+                document.getElementById('session-status').className = "text-emerald-400 font-bold";
             }
-        };
 
-        window.lockAdminSession = function() {
-            isAuthorized = false;
-            document.getElementById('admin-control-panel').classList.add('hidden');
-            document.getElementById('admin-trigger-btn').innerHTML = '<i class="fa-solid fa-lock mr-1"></i> Admin Login';
-            document.getElementById('admin-trigger-btn').className = "bg-cyan-950 border border-cyan-700 text-cyan-300 px-3 py-1 rounded hover:bg-cyan-900 transition cursor-pointer";
-            window.loadEducation();
-            window.loadCertificates();
-            alert("Admin Session Locked.");
-        };
+            loadEducation();
+            loadCertificates();
+        });
 
-        window.loadEducation = function() {
+        function loadEducation() {
             const container = document.getElementById('education-container');
             const list = JSON.parse(localStorage.getItem('myEducation') || '[]');
             container.innerHTML = '';
@@ -212,8 +251,8 @@
                         <div class="flex justify-between items-start">
                             <span class="text-xs px-2.5 py-1 rounded font-mono border bg-cyan-500/20 text-cyan-300 border-cyan-500/40">${e.category}</span>
                             <div class="space-x-1 ${isAuthorized ? '' : 'hidden'}">
-                                <button onclick="window.editEdu(${idx})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-0.5 rounded text-xs cursor-pointer">Edit</button>
-                                <button onclick="window.delEdu(${idx})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-0.5 rounded text-xs cursor-pointer">Delete</button>
+                                <button onclick="editEdu(${idx})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-0.5 rounded text-xs cursor-pointer">Edit</button>
+                                <button onclick="delEdu(${idx})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-0.5 rounded text-xs cursor-pointer">Delete</button>
                             </div>
                         </div>
                         <h3 class="text-xl font-semibold mt-3">${e.title}</h3>
@@ -225,25 +264,25 @@
                 `;
                 container.appendChild(card);
             });
-        };
+        }
 
-        window.addNewEducation = function() {
+        function addNewEducation() {
             const category = prompt("Category (University/College/Diploma/Bootcamp):", "University");
             const title = prompt("Title:");
             const institution = prompt("Institution:");
-            const duration = prompt("Duration (e.g. 2024 - Present):", "");
-            const skills = prompt("Skills (comma separated):", "");
+            const duration = prompt("Duration:", "");
+            const skills = prompt("Skills:", "");
             const description = prompt("Description:", "");
 
             if (title && institution) {
                 let list = JSON.parse(localStorage.getItem('myEducation') || '[]');
                 list.push({ category: category || 'Education', title, institution, duration, skills, description });
                 localStorage.setItem('myEducation', JSON.stringify(list));
-                window.loadEducation();
+                loadEducation();
             }
-        };
+        }
 
-        window.editEdu = function(idx) {
+        function editEdu(idx) {
             let list = JSON.parse(localStorage.getItem('myEducation') || '[]');
             const item = list[idx];
             const title = prompt("Edit Title:", item.title);
@@ -254,18 +293,18 @@
             if (title && institution) {
                 list[idx] = { ...item, title, institution, duration, description };
                 localStorage.setItem('myEducation', JSON.stringify(list));
-                window.loadEducation();
+                loadEducation();
             }
-        };
+        }
 
-        window.delEdu = function(idx) {
+        function delEdu(idx) {
             let list = JSON.parse(localStorage.getItem('myEducation') || '[]');
             list.splice(idx, 1);
             localStorage.setItem('myEducation', JSON.stringify(list));
-            window.loadEducation();
-        };
+            loadEducation();
+        }
 
-        window.loadCertificates = function() {
+        function loadCertificates() {
             const container = document.getElementById('certs-container');
             const certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
             container.innerHTML = '';
@@ -278,8 +317,8 @@
                         <div class="flex justify-between items-start">
                             <i class="fa-solid fa-certificate text-3xl text-cyberaccent mb-3"></i>
                             <div class="space-x-1 ${isAuthorized ? '' : 'hidden'}">
-                                <button onclick="window.editCert(${idx})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-0.5 rounded text-xs cursor-pointer">Edit</button>
-                                <button onclick="window.delCert(${idx})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-0.5 rounded text-xs cursor-pointer">Delete</button>
+                                <button onclick="editCert(${idx})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-0.5 rounded text-xs cursor-pointer">Edit</button>
+                                <button onclick="delCert(${idx})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-0.5 rounded text-xs cursor-pointer">Delete</button>
                             </div>
                         </div>
                         <h3 class="text-xl font-semibold">${c.title}</h3>
@@ -289,9 +328,9 @@
                 `;
                 container.appendChild(card);
             });
-        };
+        }
 
-        window.addNewCertificate = function() {
+        function addNewCertificate() {
             const title = prompt("Certificate Title:");
             const issuer = prompt("Issuer:");
             const date = prompt("Date:");
@@ -301,52 +340,10 @@
                 let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
                 certs.push({ title, issuer, date, link });
                 localStorage.setItem('myCertificates', JSON.stringify(certs));
-                window.loadCertificates();
+                loadCertificates();
             }
-        };
+        }
 
-        window.editCert = function(idx) {
+        function editCert(idx) {
             let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
             const c = certs[idx];
-            const title = prompt("Edit Title:", c.title);
-            const issuer = prompt("Edit Issuer:", c.issuer);
-            const date = prompt("Edit Date:", c.date);
-
-            if (title && issuer) {
-                certs[idx] = { ...c, title, issuer, date };
-                localStorage.setItem('myCertificates', JSON.stringify(certs));
-                window.loadCertificates();
-            }
-        };
-
-        window.delCert = function(idx) {
-            let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
-            certs.splice(idx, 1);
-            localStorage.setItem('myCertificates', JSON.stringify(certs));
-            window.loadCertificates();
-        };
-
-        window.editAboutSection = function() {
-            const newText = prompt("Edit Bio:", document.getElementById('about-text').innerText);
-            if (newText) {
-                document.getElementById('about-text').innerText = newText;
-                localStorage.setItem('myAboutText', newText);
-                alert("Updated!");
-            }
-        };
-
-        window.generateDynamicCV = function() {
-            const about = document.getElementById('about-text').innerText;
-            const edu = JSON.parse(localStorage.getItem('myEducation') || '[]');
-            const certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
-
-            let eduHTML = edu.map(e => `<li><strong>${e.title}</strong> (${e.category}) - ${e.institution} [${e.duration}]<br>${e.description}</li>`).join('');
-            let certHTML = certs.map(c => `<li><strong>${c.title}</strong> - ${c.issuer} (${c.date})</li>`).join('');
-
-            const win = window.open('', '_blank');
-            win.document.write(`<html><body><h1>Abdul Hayee Jamali - CV</h1><h2>About</h2><p>${about}</p><h2>Education</h2><ul>${eduHTML}</ul><h2>Certificates</h2><ul>${certHTML}</ul></body></html>`);
-            win.document.close();
-        };
-    </script>
-</body>
-</html>
