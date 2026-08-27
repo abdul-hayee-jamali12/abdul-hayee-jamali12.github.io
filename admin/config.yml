@@ -1,0 +1,32 @@
+backend:
+  name: github
+  repo: abdul-hayee-jamali12/abdul-hayee-jamali12.github.io
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "portfolio"
+    label: "Main Portfolio Data"
+    files:
+      - file: "_data/profile.json"
+        label: "Profile & Bio"
+        name: "profile"
+        fields:
+          - {label: "Full Name", name: "name", widget: "string"}
+          - {label: "Professional Title", name: "title", widget: "string"}
+          - {label: "Short Bio / Summary", name: "bio", widget: "text"}
+          - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
+          
+      - file: "_data/certificates.json"
+        label: "Certificates & Achievements"
+        name: "certificates"
+        fields:
+          - label: "List of Certificates"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Certificate Title", name: "title", widget: "string"}
+              - {label: "Issuing Organization", name: "issuer", widget: "string"}
+              - {label: "Upload File (Photo or PDF)", name: "file", widget: "file"}
