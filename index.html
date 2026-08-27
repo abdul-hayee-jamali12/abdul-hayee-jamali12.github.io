@@ -62,19 +62,11 @@
         <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center text-xs md:text-sm gap-2">
             <span class="text-cyberaccent font-mono"><i class="fa-solid fa-triangle-exclamation mr-1"></i>ADMIN MODE ACTIVE</span>
             <div class="flex flex-wrap gap-2">
-                <button onclick="window.editAboutSection()" class="bg-gray-800 border border-cyan-500/50 text-cyan-300 font-bold px-3 py-1.5 rounded hover:bg-cyan-900 transition">
-                    <i class="fa-solid fa-pen-to-square mr-1"></i> About
-                </button>
-                <button onclick="window.editContactLinks()" class="bg-gray-800 border border-cyan-500/50 text-cyan-300 font-bold px-3 py-1.5 rounded hover:bg-cyan-900 transition">
-                    <i class="fa-solid fa-share-nodes mr-1"></i> Socials
-                </button>
-                <button onclick="window.addNewEducation()" class="bg-cyan-600 text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400 transition">
-                    <i class="fa-solid fa-graduation-cap mr-1"></i> + Edu / Bootcamp
-                </button>
-                <button onclick="window.addNewCertificate()" class="bg-cyberaccent text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400 transition">
-                    <i class="fa-solid fa-plus mr-1"></i> + Certificate
-                </button>
-                <button onclick="window.toggleAdmin()" class="bg-red-900/80 text-red-200 px-3 py-1.5 rounded hover:bg-red-800 transition">Exit</button>
+                <button onclick="window.editAboutSection()" class="bg-gray-800 border border-cyan-500/50 text-cyan-300 font-bold px-3 py-1.5 rounded hover:bg-cyan-900">Edit About</button>
+                <button onclick="window.editContactLinks()" class="bg-gray-800 border border-cyan-500/50 text-cyan-300 font-bold px-3 py-1.5 rounded hover:bg-cyan-900">Edit Socials</button>
+                <button onclick="window.addNewEducation()" class="bg-cyan-600 text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400">+ Edu/Bootcamp</button>
+                <button onclick="window.addNewCertificate()" class="bg-cyberaccent text-black font-bold px-3 py-1.5 rounded hover:bg-cyan-400">+ Certificate</button>
+                <button onclick="window.toggleAdmin()" class="bg-red-900 text-red-200 px-3 py-1.5 rounded">Exit</button>
             </div>
         </div>
     </div>
@@ -128,17 +120,13 @@
     <!-- Unified Education & Training Section -->
     <section id="education" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
         <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Education, Diplomas & Bootcamps</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="education-container">
-            <!-- Dynamic Content -->
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="education-container"></div>
     </section>
 
     <!-- Certificates Section -->
     <section id="certificates" class="max-w-6xl mx-auto px-6 py-20 border-t border-cyan-900/30">
         <h2 class="text-3xl font-bold mb-10 border-l-4 border-cyberaccent pl-4 font-mono">Certificates & Credentials</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="certs-container">
-            <!-- Dynamic Content -->
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="certs-container"></div>
     </section>
 
     <!-- Contact & Social Links Section -->
@@ -158,15 +146,14 @@
         <p>&copy; 2026 Abdul Hayee Jamali. All rights reserved. Secured & Encrypted.</p>
     </footer>
 
-    <!-- JavaScript: Direct Delete (No Confirms), Global Scope Bindings -->
+    <!-- JavaScript Script -->
     <script>
         const CORRECT_PASSWORD = "Website@shani1202";
         let isAdmin = false;
 
         const initialEducation = [
             { category: "University", title: "BS in Cybersecurity", institution: "University of Peshawar", role: "student", duration: "2024 - Present", skills: "OT Security, SCADA/ICS Defense, Network Protocols", description: "Bachelor's degree focusing on defensive security frameworks and critical infrastructure defense." },
-            { category: "Diploma", title: "DAE in Electronics & Communication", institution: "Polytechnic Institute", role: "student", duration: "3 Years", skills: "Electronics, Hardware Systems, Communication Engineering", description: "Completed 3-year Diploma of Associate Engineering in Electronics." },
-            { category: "Bootcamp", title: "OT Security & SCADA Protocols", institution: "Tech Security Community", role: "teacher", duration: "3 Days", skills: "SCADA Protocols, Wireshark, ICS Security", description: "Conducted practical training for cybersecurity students on ICS defense." }
+            { category: "Diploma", title: "DAE in Electronics & Communication", institution: "Polytechnic Institute", role: "student", duration: "3 Years", skills: "Electronics, Hardware Systems, Communication Engineering", description: "Completed 3-year Diploma of Associate Engineering in Electronics." }
         ];
 
         const initialCerts = [
@@ -184,7 +171,6 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             initDB();
-
             const savedAbout = localStorage.getItem('myAboutText');
             if (savedAbout) document.getElementById('about-text').innerText = savedAbout;
 
@@ -199,7 +185,6 @@
             window.loadCertificates();
         });
 
-        // 1. EDUCATION & BOOTCAMP CRUD
         window.loadEducation = function() {
             const container = document.getElementById('education-container');
             const eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
@@ -211,12 +196,11 @@
                 if(e.category === "Diploma") badgeColor = "bg-purple-500/20 text-purple-300 border-purple-500/40";
                 if(e.category === "Bootcamp") badgeColor = "bg-emerald-500/20 text-emerald-300 border-emerald-500/40";
 
-                const roleText = e.role === "teacher" ? '<span class="text-xs text-amber-300 font-mono ml-2"><i class="fa-solid fa-chalkboard-user mr-1"></i>Instructor</span>' : '';
+                const roleText = e.role === "teacher" ? '<span class="text-xs text-amber-300 font-mono ml-2">Instructor</span>' : '';
 
                 const card = document.createElement('div');
                 card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden";
                 card.innerHTML = `
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
                     <div>
                         <div class="flex justify-between items-start">
                             <div>
@@ -224,31 +208,29 @@
                                 ${roleText}
                             </div>
                             <div class="space-x-1 ${isAdmin ? '' : 'hidden'}">
-                                <button onclick="window.editEducation(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="window.deleteEducation(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="window.editEducation(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2.5 py-1 rounded text-xs">Edit</button>
+                                <button onclick="window.deleteEducation(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2.5 py-1 rounded text-xs">Delete</button>
                             </div>
                         </div>
                         <h3 class="text-xl font-semibold mt-3">${e.title}</h3>
                         <p class="text-sm text-cyan-300 font-mono mt-1">${e.institution}</p>
                         <p class="text-sm text-gray-300 mt-2">${e.description}</p>
-                        ${e.skills ? `<p class="text-xs text-cyberaccent font-mono mt-3"><i class="fa-solid fa-brain mr-1"></i>Skills: ${e.skills}</p>` : ''}
+                        ${e.skills ? `<p class="text-xs text-cyberaccent font-mono mt-3">Skills: ${e.skills}</p>` : ''}
                     </div>
-                    <div class="pt-4 border-t border-gray-800 flex justify-between items-center text-xs text-gray-400 font-mono">
-                        <span><i class="fa-regular fa-calendar mr-1"></i>${e.duration}</span>
-                    </div>
+                    <div class="pt-4 border-t border-gray-800 text-xs text-gray-400 font-mono">${e.duration}</div>
                 `;
                 container.appendChild(card);
             });
         };
 
         window.addNewEducation = function() {
-            const category = prompt("Type Category (University / College / Diploma / Bootcamp / Course):", "University");
-            const title = prompt("Degree / Program / Topic Title (e.g., BS Cybersecurity / DAE):");
-            const institution = prompt("Institution / Organization / Platform:");
+            const category = prompt("Category (University/College/Diploma/Bootcamp):", "University");
+            const title = prompt("Title (e.g. BS Cybersecurity):");
+            const institution = prompt("Institution Name:");
             const role = prompt("Role ('student' or 'teacher'):", "student");
-            const duration = prompt("Duration / Years (e.g. 2024 - Present or 3 Days):", "2024 - Present");
-            const skills = prompt("Skills covered (e.g. SCADA, Python, Electronics):", "");
-            const description = prompt("Short Description / Details:", "");
+            const duration = prompt("Duration (e.g. 2024 - Present):", "");
+            const skills = prompt("Skills (comma separated):", "");
+            const description = prompt("Description:", "");
 
             if (title && institution) {
                 let eduList = JSON.parse(localStorage.getItem('myEducation') || '[]');
@@ -263,10 +245,10 @@
             const item = eduList[index];
             if (!item) return;
 
-            const category = prompt("Edit Category (University/College/Diploma/Bootcamp):", item.category);
+            const category = prompt("Edit Category:", item.category);
             const title = prompt("Edit Title:", item.title);
             const institution = prompt("Edit Institution:", item.institution);
-            const role = prompt("Edit Role ('student' or 'teacher'):", item.role);
+            const role = prompt("Edit Role:", item.role);
             const duration = prompt("Edit Duration:", item.duration);
             const skills = prompt("Edit Skills:", item.skills);
             const description = prompt("Edit Description:", item.description);
@@ -285,7 +267,6 @@
             window.loadEducation();
         };
 
-        // 2. CERTIFICATES CRUD
         window.loadCertificates = function() {
             const container = document.getElementById('certs-container');
             const certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
@@ -295,14 +276,50 @@
                 const card = document.createElement('div');
                 card.className = "cyber-card bg-cybergray/80 border border-cyan-900/40 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden";
                 card.innerHTML = `
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
                     <div>
                         <div class="flex justify-between items-start">
                             <i class="fa-solid fa-certificate text-3xl text-cyberaccent mb-3"></i>
                             <div class="space-x-1 ${isAdmin ? '' : 'hidden'}">
-                                <button onclick="window.editCertificate(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2 py-1 rounded text-xs hover:bg-cyan-900" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="window.deleteCertificate(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2 py-1 rounded text-xs hover:bg-red-900" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="window.editCertificate(${index})" class="bg-cyan-950 text-cyan-400 border border-cyan-700 px-2.5 py-1 rounded text-xs">Edit</button>
+                                <button onclick="window.deleteCertificate(${index})" class="bg-red-950 text-red-400 border border-red-700 px-2.5 py-1 rounded text-xs">Delete</button>
                             </div>
                         </div>
                         <h3 class="text-xl font-semibold">${c.title}</h3>
-                        <p class="text-sm text-gray-400
+                        <p class="text-sm text-gray-400 mt-1">${c.issuer}</p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
+                        <span class="text-xs text-cyberaccent font-mono">${c.date}</span>
+                        ${c.link && c.link !== "#" ? `<a href="${c.link}" target="_blank" class="text-xs bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500 hover:text-black px-3 py-1.5 rounded transition font-mono">View</a>` : ''}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        };
+
+        window.addNewCertificate = function() {
+            const title = prompt("Certificate Title:");
+            const issuer = prompt("Issuer:");
+            const date = prompt("Date:");
+            const link = prompt("Credential Link:");
+
+            if (title && issuer) {
+                let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
+                certs.push({ title, issuer, date: date || "", link: link || "" });
+                localStorage.setItem('myCertificates', JSON.stringify(certs));
+                window.loadCertificates();
+            }
+        };
+
+        window.editCertificate = function(index) {
+            let certs = JSON.parse(localStorage.getItem('myCertificates') || '[]');
+            const c = certs[index];
+            if (!c) return;
+
+            const title = prompt("Edit Title:", c.title);
+            const issuer = prompt("Edit Issuer:", c.issuer);
+            const date = prompt("Edit Date:", c.date);
+            const link = prompt("Edit Link:", c.link);
+
+            if (title && issuer) {
+                certs[index] = { title, issuer, date: date || "", link: link || "" };
+                localStorag
